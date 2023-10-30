@@ -15,6 +15,7 @@ book:
   search:
     location: navbar
     type: overlay
+  
 
 bibliography: assets/references.bib
 
@@ -25,11 +26,14 @@ format:
       dark: darkly
     smooth-scroll: true
     toc-title: "On this page"
+    sidebar: false
     anchor-sections: true
-
+    number-sections: false
     grid:
       body-width: 650px
-      margin-width: 450px
+      margin-width: 325px
+    reference-location: margin
+      # citation-location: margin
 
   # pdf:
   #   documentclass: scrreprt
