@@ -1,0 +1,40 @@
+project:
+  type: book
+  output-dir: _build
+
+book:
+  title: "Cma"
+  author: "LSYS"
+  # date: "10/30/2023"
+  chapters:
+    - index.qmd
+  downloads: [pdf, epub, docx]
+  navbar:
+    title: "Overview"
+  sharing: [twitter, facebook, linkedin]
+  search:
+    location: navbar
+    type: overlay
+
+bibliography: assets/references.bib
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    smooth-scroll: true
+    toc-title: "On this page"
+    anchor-sections: true
+
+    grid:
+      body-width: 650px
+      margin-width: 450px
+
+  # pdf:
+  #   documentclass: scrreprt
+  # epub: default
+  # docx: default
+
+
+
