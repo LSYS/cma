@@ -30,10 +30,12 @@ format:
     anchor-sections: true
     number-sections: false
     grid:
-      body-width: 650px
-      margin-width: 325px
+      body-width: 625px
+      margin-width: 350px
     reference-location: margin
-      # citation-location: margin
+    # include-in-header:
+    #   - file: assets/macros.html      
+    # citation-location: margin
 
   # pdf:
   #   documentclass: scrreprt
@@ -42,3 +44,11 @@ format:
 
 
 
+# format: 
+#     html:
+#       include-in-header:
+#          - file: macros.html
+#     pdf:
+#       include-in-header:
+#          - text: |
+#                \newcommand{\foo}{E=mc^{2}}
