@@ -1,14 +1,348 @@
-# Preface {.unnumbered}
+$$
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+$$
 
-This is a Quarto book.
+**passes**
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+* make certain | bigger
+* get trends of ma pubmed
+* make graph of AITEC + ADTET
+* prove AITE 
+* product-coef from PO
+* direct effect from PO (supp)
 
-# Another sect
 
-xxx
+<!-- Some notes on treatment effects -->
+## (Un-mediated) Treatment effects {#sec-un-mediated-treatment-effects}
+First, to set some context with the causal inference approach with (model-free) potential outcomes (`PO`) without mediation. 
+In a simple setup with just treatment $T$ and an outcome of interes $Y$ (without the mediator $M$ for now), the main estimand of interest is the average treatment effect (`ATE`) defined as 
+$$
+\tau \equiv E[Y(1)] - E[Y(0)],
+$${#eq-ate}
 
-# References {.unnumbered}
+for the simplest scenario where $T$ is a binary split:
+$$ 
+T = \begin{cases} 
+1 & \text{if treated}, \\
+0 & \text{if untreated},
+\end{cases}
+$$
+
+and where $Y(1)$ is the potential outcome with treatment ($T=1$) and $Y(0)$ is the potential outcome without treatment ($T=0$).
+For a given individual, only $Y(1)$ is observed with treatment.
+ $Y(0)$ is the counterfactual.[^2]
+
+[^2]: Aka missing data as the ''Fundamental Problem of Causal Inference'' [@Holland1986-yr].
+
+
+```{dot}
+//| fig-cap: "Estimating the effect of treatment ($T$) on some outcome of interest ($Y$)."
+//| label: fig-ate-dag
+//| fig-width: 300px
+//| fig-height: 60px
+//| column: margin
+
+digraph ATE {
+  rankdir=LR 
+  node [shape=circle,fontsize="10"] 
+  T -> Y [arrowsize=0.4] [label=ATE]
+}
+```
+
+In reality, all we observe are outcomes conditional on the treatment $[Y|T=t]$ and the *statistical solution* [@Holland1986-yr] is via differences in averages
+$$
+E[Y|T=1] - E[Y|T=0]
+$$
+
+which reduces to @eq-ate under certain conditions such as the independence assumption.[^3]
+
+$$
+Y_i(t) \ind T_i
+$${#eq-independence-assumption}
+
+[^3]: The conditional analog is similar for some baseline set of observables $X$: $\{Y_i(t) \ind T_i\} | X_i$ [e.g., @Imbens2004-tp; @Angrist2009-oz]. *This vignette will largely abstract away from $X$ for simplicity.*
+
+The simplest way to estimate $\tau$, given the assumptions are met, is 
+$$
+Y_i = \alpha + \tau T_i + \varepsilon_i
+$$
+
+
+<!-- Mediation through the lens of potential outcomes -->
+## Mediation through the lens of potential outcomes
+
+[^temporal-order]: Separate issue of temporal ordering of T, M, and Y (not covered in this vignette. See P49 of Stuart et al 2021 for more references.)
+
+[^4]: The total effect (TE) is apparently used in place of the ATE in the language of mediation analysis [e.g., @PARK2019186].
+
+[^cam-notation]: This PO notation is similar to that in @Imbens2004-tp, @Angrist2009-oz, @Imai2010-tg, @Nguyen2021-oj, etc. @Pearl2001-ct, @whatif, etc., have slightly different PO notations.
+
+I was wondering how mediation analysis fit into this barebones potential outcomes framework.
+Most publications with mediation analysis are in the tradition of the Baron and Kenny tradition [@Baron1986-zn] and also **Mackinnon 2008** (hereafter the classical mediation approach).
+Inherent in mediation analysis, whether made explicit or not, is a causal hypothesis.
+T causes Y through M.
+There is, however, nothing in the BK approach that imposes that uni-direction, and it is not clear what assumptions are required to recover the ATE.
+
+But it appears that work to think of mediation in the causal inference framework started as early as @Robins1992-ty and as recent as @Stuart2022-bm (here after the causal inference appraoach.[^temporal-order]
+With a proposed mediation path through a variable $M$, the analog of the ATE (@eq-ate) is now:[^4] [^cam-notation]
+
+$$
+\tau = E[Y(1, M(1))] - E[Y(0, M(0))],
+$${#eq-ate2}
+where (like $T$) the simplest scenario is:
+$$ 
+M = \begin{cases} 
+1 & \text{if T = 1}, \\
+0 & \text{if T = 0},
+\end{cases}
+$$
+where the value of the mediator $M$ also depends on $T$.
+
+```{dot}
+//| fig-cap: "Thasdasdis is a simple graphviz graph."
+//| label: fig-simple
+//| fig-width: 300px
+//| fig-height: 120px
+//| column: margin
+
+digraph Mediation {
+  rankdir=LR ;
+  splines=false;
+  layout=dot;
+  node [shape=circle,fontsize="13",width=.2 height=.2 margin=0]
+  M -> Y [arrowsize=0.5];
+  T -> Y [arrowsize=0.5];
+  T -> M [arrowsize=0.35];
+}
+```
+[^5]: While going through a bunch of resources from at least four different fields, I came across a suggestion that the direct effect should really be called the unmediated effect (although I was unable to trace back the source). The notion is that the *direct effect* is no more a direct effect than the residual is a guassian error.
+If there are unspecified mediation pathway(s), the direct effect will subsume those.
+
+From the total effect (@eq-ate2), we can start decomposing into the direct and indirect effects.[^5]
+Apparently there are two different sets of estimands [@Nguyen2021-oj]. (No one told me that...)
+
+
+<!-- Set A: ADTE and AITE -->
+## Set A: ADTE and AITE
+The first set of estimands for direct and indirect effects are the average direct treatment effect 
+$$
+ADTE \equiv \underbrace{E[Y(1,M(0))] - E[Y(0,M(0))]}_{\text{effect of $T$ on $Y$ when $M$ is held at M(T=0)}}
+$${#eq-adte}
+and the average indirect treatment effect.
+$$
+AITE \equiv \underbrace{E[Y(1,M(1))] - E[Y(1,M(0))]}_{\text{effect of $M$ on $Y$ when $T=1$}}
+$${#eq-aite}
+
+The decomposition of the ATE into the two effects follows directly from the @eq-ate2:
+
+:::{.column-page}
+
+$$
+\begin{align}
+\underbrace{E[Y(1, M(1))] - E[Y(0, M(0))]}_{\text{total effect}}
+&= E[Y(1, M(1))] \underbrace{- E[Y(1,M(0))] + E[Y(1,M(0))]}_{\text{additive identity}} - E[Y(0, M(0))]\\
+&= \underbrace{E[Y(1, M(1))] - E[Y(1,M(0))]}_{\text{AITE}} + \underbrace{E[Y(1,M(0))] - E[Y(0, M(0))]}_{\text{ADTE}}
+\end{align}
+$$
+::: 
+
+[^6]: ADTE is aka the natural direct effect (NDE). AITE is aka the natural indirect effect (NIE). That's Pearl's language [@Pearl2001-ct]. Another one is pure direct effect and total indirect effect [e.g., @Robins1992-ty; @whatif].
+
+The AITE in particular is therefore also known as the causal mediation effect.[^6]
+
+This decomposition is suitable for when there are strong priors about a direct effect but unclear priors on whether an indirect effect also exists.
+An example could be where $T$ is a STEM degree that raises labor market value $Y$ through some technical competency, but it is unclear whether additional benefits also arise through networking with peers $M$.
+
+```{dot}
+//| fig-cap: "Set A: ADTE and AITE."
+//| label: fig-aite-adte
+//| fig-width: 200px
+//| fig-height: 170px
+//| column: margin
+
+digraph Mediation {
+  rankdir=LR ;
+  splines=false;
+  layout=dot;
+  node [shape=none,]
+  ATE -> ADTE [arrowsize=0.6];
+  ATE -> AITE [arrowsize=0.6];
+  ADTE -> AITE [dir=none, constraint=false, label="+", color=white];
+}
+```
+Another example could be where $T$ is a dietary program (e.g., a low-whatever-the-frack-is-the-new-fad diet) that lowers diabetic risk $Y$, but it is unclear if reduction in diabetic risk also comes from weight loss $M$. 
+If not, targeting weight loss may be of limited efficacy.
+This is of practical implication since it informs where and what type of intervention should occur.
+
+
+
+<!-- Set B: ADTET and AITEC -->
+## Set B: ADTET and AITEC
+The second set of estimands that decompose the ATE are the average direct treatment effect wrt the treated
+
+$$
+ADTET \equiv \underbrace{E[Y(1,M(1))] - E[Y(0, M(1))]}_{\text{effect of T when $M$ is held at M(T=1)}}
+$${#eq-adtet}
+
+and the average indirect treatment effects wrt to controls
+$$
+AITEC \equiv \underbrace{E[Y(0,M(1))] - E[Y(0, M(0))]}_{\text{effect of M when $T=0$}}.
+$${#eq-aitec}
+
+Decompositon again follows directly:
+
+:::{.column-page}
+$$
+\underbrace{E[Y(1, M(1))] - E[Y(0, M(0))]}_{\text{total effect}}
+= \underbrace{E[Y(1,M(1))] - E[Y(0, M(1))]}_{\text{ADTET}} + \underbrace{E[Y(0,M(1))] - E[Y(0, M(0))]}_{\text{AITEC}}.
+$$
+::: 
+
+This decomposition is useful for when there are strong priors about an indirect mediating path, but unclear priors about a direct effect.
+An example could be where $T$ is an MBA degree with weak connection labor market value $Y$ through some technical competency, but where benefits mainly arise through networking in the MBA program $M$.
+
+<!-- Differences with traditional mediation analysis -->
+## Classical mediation analysis
+In the classial mediation approach, in addition to
+
+$$
+Y_i = \alpha + \beta T_i + \varepsilon_i,
+$$
+
+two equations are estimated in a structural equation model[@Baron1986-zn]. 
+One modelling T and its effect on M.
+The other modelling the effect of T and M on Y.
+
+$$
+M_i = \alpha_0 + \alpha_1 T_i + \varepsilon_{1i}
+$${#eq-classical-med1}
+$$
+Y_i = \beta_0 + \beta_1 T_i + \beta_2 M_i + \varepsilon_{2i}
+$${#eq-classical-med2}
+
+@eq-classical-med1 and @eq-classical-med2 are estimated separately.
+The mediation effect is observed via the "product-of-coefficients" method as ($\hat{\alpha_1} \hat{\beta_2}$)---quite literally the effect of $T$ on $M$ multiplied by the effect of $M$ on $Y$.
+The direct effect of $T$ on $Y$ would be observed with $\hat{\beta_1}$.  
+
+The conditional analog of this with a set of covariates $X$ should follow closely [@Judd1981-rn].
+
+<!-- Common ground: Classical approach and causal inference approach -->
+## Classical mediation analysis: Common grounds
+How would the causal inference approach with potential outcomes connect to the classical approach?
+
+The reduced form of ..
+
+If the classical and causal inference approach both agree on the underlying intuition of mediation, why use potential outcomes?
+One reason is it helps clarify what the identification assumptions are.
+
+<!-- Biases, bounds, and assumptions -->
+## Biases, bounds, and assumptions
+What we can observe in the real world is $[Y_i |T = t, M = m]$, $t \in \{0, 1\}$, $m \in \{0, 1\}$. 
+From the AITE (@eq-aite), the observed differences in a mediated effect, given that treatment is "`switched on`"
+ $t=1$, is   
+
+:::{.column-page}
+
+$$
+\begin{align}
+&E[Y|T=1, M = 1] - E[Y|T=1, M=0] \\
+&=E[Y(1,M(1))|T=1, M=1] - E[Y(1,M(1))|T=1, M=0] \\
+&=E[Y(1,M(1))|M=1] - E[Y(1,M(1))|M=0]  \qquad\qquad (\text{from }Y_i(t,m) \ind T_i)
+\end{align}
+$$
+
+:::
+
+where the potential outcome reflects $t = 1$ but where the second group has the actual mediation `switched off` to $m = 0$.
+The last line follows from the independence (or, ignorability) assumption (analagous to @eq-independence-assumption).
+It will carry its own selection bias unless additional assumptions are imposed.
+
+:::{.column-page}
+
+$$
+\begin{align}
+&E[Y(1,M(1))|M=1] - E[Y(1,M(1))|M=0]\\
+&= E[Y(1,M(1))|M=1] - \underbrace{E[Y(1, M(0))|M=0] + E[Y(1, M(0))|M=0]}_{\text{additive identity}} - E[Y(1,M(1))|M=0]  \\
+&=\underbrace{E[Y(1,M(1))|M=1] - }
+\end{align}
+$$
+
+:::
+
+In the un-mediated case (@sec-un-mediated-treatment-effects), a key assumption is independence of potential outcome $Y(t) \ind T_I$.
+With mediation, it turns out (in line with intuition) that **more assumptions** are required:
+
+$$
+\{ Y_i(t, m), M_i(t')\} \ind T_i
+$${#eq-seq-ignorability1}
+$$
+\{Y_i(t', m) \ind M_i(t)\} | T_i = t
+$${#eq-seq-ignorability2}
+where the treatment $T$ is first assumed to be orthogonal to 
+
+First, for a causal interpretation, the treatment assignment $T$ has to be statistically orthogonal to the potential outcomes and the potential mediators.
+This should usually be satisfied with randomization of $T$ as in the usual unmediated case (@sec-un-mediated-treatment-effects).
+Second, given the actual value $T_i = t$, the mediator $M$ should be statistically orthogonal to the potential outcome.
+The above is the *sequential* ignorability assumption since they are made sequentially[@Imai2010-fu]. 
+
+In addition, there is an (slighly more subtle) assumption with the data support $T$ (and $M$).
+$$
+\exists \theta > 0: \ \theta \leq \mathbb E \left[ T_i = t \right] \leq (1-\theta), \qquad t \in \{0, 1\}
+$$
+With an additional modeling of mediation, an additional assumption applies to the mediator:
+$$
+\exists \eta > 0: \ \eta \leq \mathbb E \left[ M_i = m \big| T_i = t \right] \leq (1-\eta), \qquad t \in \{0, 1\}
+$$
+
+Loosely speaking, with mediation, there are twice the identification assumptions needed.
+
+[^bullock-quote]: To quote the title of @Bullock2010-vb: "*Yes, But What’s the Mechanism? (Don’t Expect an Easy Answer)*".
+
+
+
+
+
+
+
+
+---
+nocite: |
+  @cmam
+---
+
+## References {.numbered}
 
 ::: {#refs}
 :::
+
+<!-- 
+# Differences: Causal inference approach vs traditional approach 
+# Connections: Causal inference approach vs traditional approach 
+
+# Causal inference: Biases and bounds
+# Traditional inference: Biases and bounds
+
+# Intervening on the mediator
+
+# Heterogeneities...
+
+# Interacting + moderation
+see Imai Keele Tingley 2010
+
+
+# Instruments and mediators
+
+See Bullock for a very short note
+see also Imai Keele Tingley 2010
+
+# Endnote 
+This vignette is merely my attempt at gaining some literacy on (causal) mediation analysis.
+Pretty much all studies I've seen implicity use mediation to directly imply some kind of directional effect.
+This clearly alludes to a causal channel, but without being clear on what the estimands are or what identification assumptions are needed.
+(this tracks with that paper by Ngyuen?)
+-->
+
+
+## Supplementary appendix
+
+### Biases, bounds, and assumptions: Algebraic version
