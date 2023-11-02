@@ -11,6 +11,10 @@ book:
   downloads: [pdf, epub, docx]
   navbar:
     title: "Overview"
+    right:
+      - icon: github
+        href: https://github.com/lsys/cma
+        aria-label: GitHub    
   sharing: [twitter, facebook, linkedin]
   search:
     location: navbar
@@ -33,22 +37,8 @@ format:
       body-width: 625px
       margin-width: 350px
     reference-location: margin
-    # include-in-header:
-    #   - file: assets/macros.html      
-    # citation-location: margin
 
-  # pdf:
-  #   documentclass: scrreprt
-  # epub: default
-  # docx: default
-
-
-
-# format: 
-#     html:
-#       include-in-header:
-#          - file: macros.html
-#     pdf:
-#       include-in-header:
-#          - text: |
-#                \newcommand{\foo}{E=mc^{2}}
+  pdf:
+    documentclass: default
+  epub: default
+  docx: default
