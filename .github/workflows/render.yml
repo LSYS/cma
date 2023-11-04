@@ -53,7 +53,7 @@ jobs:
 
       # NOTE: If Publishing to GitHub Pages, set the permissions correctly (see top of this yaml)
       - name: Render Quarto Project
-        uses: quarto-dev/quarto-actions/render@@v2
+        uses: quarto-dev/quarto-actions/render@v2
         with:
           target: gh-pages
         env:
