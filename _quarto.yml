@@ -11,10 +11,15 @@ book:
   downloads: [pdf, epub, docx]
   navbar:
     title: "Overview"
-    right:
+    right:  
+      - icon: house-up-fill
+        href: https://www.lucasshen.com
+        aria-label: Home directory
+        target: _blank
       - icon: github
         href: https://github.com/lsys/cma
-        aria-label: GitHub    
+        aria-label: GitHub 
+        target: _blank
   sharing: [twitter, facebook, linkedin]
   search:
     location: navbar
