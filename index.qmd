@@ -1,4 +1,6 @@
 ::: {.hidden}
+```{=html}
+
 $$
 \newcommand{\ind}{\perp\!\!\!\!\perp} 
 $$
@@ -6,8 +8,20 @@ $$
 $$
 \newcommand{\E}{\mathbb E}
 $$
+```
 
+```{=epub}
+
+$$
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+$$
+
+$$
+\newcommand{\E}{\mathbb E}
+$$
+```
 :::
+
 
 **passes**
 
@@ -195,13 +209,11 @@ The decomposition of the `ATE` into the two effects follows directly from the @e
 
 :::{.column-page}
 
-$$
 \begin{align}
 \underbrace{\E\big[Y(1, M(1))\big] - \E\big[Y(0, M(0))\big]}_{\text{total effect}}
 &= \E\big[Y(1, M(1))\big] \underbrace{- \E\big[Y(1,M(0))\big] + \E\big[Y(1,M(0))\big]}_{\text{additive identity}} - \E\big[Y(0, M(0))\big]\\
 &= \underbrace{\E\big[Y(1, M(1))\big] - \E\big[Y(1,M(0))\big]}_{\text{AITE}} + \underbrace{\E\big[Y(1,M(0))\big] - \E\big[Y(0, M(0))\big]}_{\text{ADTE}}
 \end{align}
-$$
 ::: 
 
 [^6]: Sometimes `ACME` [average causal mediation effect, @Imai2010-fu; @Imai2010-tg]. ADTE is aka the natural direct effect (NDE). AITE is aka the natural indirect effect (NIE). That's Pearl's language [@Pearl2001-ct]. Another one is pure direct effect and total indirect effect [e.g., @Robins1992-ty; @whatif].
@@ -309,7 +321,6 @@ $$
 $${#eq-sem-rf}
 
 Together with the definition of the `AITE` (@eq-aite), this gives
-$$
 \begin{align}
 AITE
 &=\E\big[Y_i (1, M_i(1))\big] - \E\big[Y_i (1, M_i(0))\big] \\
@@ -322,7 +333,6 @@ AITE
 &=\Big\{\alpha_0\beta_2 + \alpha_1\beta_2\Big\} - \Big\{\alpha_0\beta_2 \Big\}\\
 &=\alpha_1 \beta_2
 \end{align}
-$$
 which is exactly the same mediation effect proposed by the "product-of-coefficients" from the structural equations above (@sec-classical-ma).[^note-si-classical-mediation]
 
 [^note-si-classical-mediation]: @sec-si-classical-mediation in the [Supplementary appendix](#supplementary-appendix) shows that what falls out from the other three estimands is also consistent with the product of coefficients.
@@ -338,15 +348,13 @@ From the `AITE` (@eq-aite), the observed differences in a mediated effect, given
  $t=1$, is   
 
 :::{.column-page}
-
 $$
-\begin{align}
+\begin{aligned}
 &\E\big[Y\big|T=1, M = 1\big] - \E\big[Y\big|T=1, M=0\big] \\
 &=\E\big[Y(1,1)\big|T=1, M=1\big] - \E\big[Y(1,0)\big|T=1, M=0\big] \\
 &=\E\big[Y(1,1)\big|M=1\big] - \E\big[Y(1,0)\big|M=0\big]  \qquad\qquad (\text{from }Y_i(t,m) \ind T_i)
-\end{align}
+\end{aligned}
 $${#eq-med-selection-bias0}
-
 :::
 
 where, even given randomization of $T$ (analagous to @eq-independence-assumption in the un-mediated case), the selection issue with $M$ persists. 
@@ -356,13 +364,12 @@ The above only reduces to the `AITE` by imposing additional assumption on the st
 :::{.column-page}
 
 $$
-\begin{align}
+\begin{aligned}
 &\E\big[Y(1,1)\big|M=1\big] - \E\big[Y(1,0)\big|M=0\big]\\
 &= \E\big[Y(1,1)\big|M=1\big] - \underbrace{\E\big[Y(1, 0)\big|M=1\big] + \E\big[Y(1, 0)\big|M=1\big]}_{\text{additive identity}} - \E\big[Y(1,0)\big|M=0\big]  \\
 &=\underbrace{\E\big[Y(1,1) - Y(1, 0)\Big|M=1\big]}_{\text{analog to AITE}} + \underbrace{\E\big[Y(1, 0)\big|M=1\big] - \E\big[Y(1,0)\big|M=0\big]}_{\text{selection into M}} 
-\end{align}
+\end{aligned}
 $${#eq-med-selection-bias}
-
 :::
 
 where $E[Y(1, 0)|M=1]$ in the first equality is a counterfactual---what would potential outcome be for people with the $M$ `switched off` $m=0$ given that it is actually `switched on` $m=1$ (*concrete example* later below).
@@ -448,15 +455,13 @@ But it turns out the mediation analysis framework also supports moderation with 
 
 [^temporality]: In terms of temporal ordering, moderators should be pre-exposure baselines (related to colliders/bad controls not covered here), while mediators should be post-exposure. Analyses termed as "mediation analyses", but where it is impossible for $T$ to influence $M$ because of temporal ordering, are really "third variable analyses" [@Nguyen2021-oj]. @sec-trends show a slight trend in "causal mediation analysis" only very recentlyss.
 
-$$
 \begin{align}
 M_i &= \alpha_0 + \alpha_1 T_i + \varepsilon_{1i}\\
 Y_i &= \beta_0 + \beta_1 T_i + \beta_2 M_i + \beta_3 M_i T_i + \varepsilon_{2i}
 \end{align}
-$${#eq-mediator-moderator}
+{#eq-mediator-moderator}
 
 Again, using the definition of the `AITE` (@eq-aite)
-$$
 \begin{align}
 &AITE \equiv \delta(1) \\
 &=\E\big[Y_i(1,M_i(1))\big] - \E\big[Y_i(1,M_i(0))\big] \\
@@ -465,7 +470,6 @@ $$
 &=\beta_2 \alpha_1 + \beta_3 \alpha_1\\
 &=\alpha_1(\beta_2 + \beta_3)
 \end{align}
-$$
 
 which is just the effect of $T$ on $M$ (the $\alpha_1$) multiplied by the coefficients of $M$ in the outcome regression ($\beta_2$ and $\beta_3$).
 
@@ -544,7 +548,6 @@ This clearly alludes to a causal channel, but without being clear on what the es
 <!-- Classical mediation analysis: ADTE, ADTET, AITEC -->
 ### Classical mediation analysis: ADTE, ADTET, AITEC {#sec-si-classical-mediation}
 Together with the definition of the ADTE (@eq-aite), this gives
-$$
 \begin{align}
 ADTE = \zeta(0)  
 &=\E\big[Y_i (1, M_i(0))\big] - \E\big[Y_i (0, M_i(0))\big] \\
@@ -556,11 +559,9 @@ ADTE = \zeta(0)
 \Big\}\\
 &=\beta_1,
 \end{align}
-$$
 which is exactly the same $\beta_1$ coefficient in @eq-classical-med2 capturing the direct effect of $T$ on $Y$.
 
 If the M is `switched on` $m=1$, we get the same result for ADTET (@eq-adtet):
-$$
 \begin{align}
 ADTET = \zeta(1)  
 &=\E\big[Y_i (1, M_i(1))\big] - \E\big[Y_i (0, M_i(1))\big] \\
@@ -572,11 +573,9 @@ ADTET = \zeta(1)
 \Big\}\\
 &=\beta_1.
 \end{align}
-$$
 
 The AITEC [@eq-aitec] also reduces to the product-of-coefficients $\alpha_1 \beta_2$:
 
-$$
 \begin{align}
 AITEC = \delta(0)
 &=\E\big[Y_i (0, M_i(1))\big] - \E\big[Y_i (0, M_i(0))\big] \\
@@ -588,19 +587,16 @@ AITEC = \delta(0)
 \Big\}\\
 &=\alpha_1 \beta_2.
 \end{align}
-$$
 
 ### Biases, bounds, and assumptions: Algebraic version {#sec-bias-bounds-assumptions-algebra}
 
 @Bullock2010-vb offer algebraic perspective of the bias seen in @sec-bias-bounds-assumptions.
 Starting with the linear structural equation model:
-$$
 \begin{align}
 Y_i &= \alpha_1 + \beta_1 T_i + \varepsilon_{1i}\\
 M_i &= \alpha_2 + \beta_2 T_i + \varepsilon_{2i}\\
 Y_i &= \alpha_3 + \beta_3 T_i + \gamma M_i + \varepsilon_{3i}\\
 \end{align}
-$$
 
 The probability limit of the estimated mediated effect $\hat{\gamma}$ [@Bullock2010-vb] is 
 $$
@@ -617,12 +613,10 @@ Not as much is said about heterogeneities in mediation effect it seems.
 Apparently, heterogeneities together with the product-of-coefficients method can be problematic, even when $M$ is already subject to experimental intervention.
 
 A similar model to @eq-classical-med1 and @eq-classical-med2 with heterogeneities in effect is
-$$
 \begin{align}
 M_i &= \alpha_1 + \beta_{1i} T_i + \varepsilon_{1i}\\
 Y_i &= \alpha_2 + \beta_{2i} T_i + \gamma_{i} M_i + \varepsilon_{2i}
 \end{align}
-$$
 
 ```{dot}
 //| fig-cap: "Group A's indirect effect is $4 (= (2)(2))$. The effect from $T$ to $M$ is 2, and the effect from $M$ to $Y$ is 2. Abstracting away from direct effects."
@@ -660,19 +654,15 @@ digraph Mediation {
 }
 ```
 To see why heterogeneity could be bad without simulations, suppose we know that the true effects for two groups, A and B (equal proportions), are as follow:
-$$
 \begin{align}
 \beta_{1A} &= 2\\
 \gamma_{A} &= 2
 \end{align}
-$$
 and 
-$$
 \begin{align}
 \beta_{1B} &= -3\\
 \gamma_{B} &= -1.
 \end{align}
-$$
 
 The mediation effect for group A is $\beta_{1A}\gamma_A = 4$ and for group B it is $\beta_{1B}\gamma_B = 3$.
 So the average of the two (given equal group proportion) is $\frac{4+3}{2} = 3.5$.
