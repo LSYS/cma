@@ -48,7 +48,9 @@ $$
 * fix intro
 * fix endnote
 * figure out footnotes
-* double check seq ignorability
+* [x] double check seq ignorability
+* mediation with moderation (with direct effects)
+* JII application example
 
 <!-- Statement of need -->
 ## Statement of need
@@ -455,11 +457,12 @@ But it turns out the mediation analysis framework also supports moderation with 
 
 [^temporality]: In terms of temporal ordering, moderators should be pre-exposure baselines (related to colliders/bad controls not covered here), while mediators should be post-exposure. Analyses termed as "mediation analyses", but where it is impossible for $T$ to influence $M$ because of temporal ordering, are really "third variable analyses" [@Nguyen2021-oj]. @sec-trends show a slight trend in "causal mediation analysis" only very recentlyss.
 
-\begin{align}
+$$
+\begin{aligned}
 M_i &= \alpha_0 + \alpha_1 T_i + \varepsilon_{1i}\\
 Y_i &= \beta_0 + \beta_1 T_i + \beta_2 M_i + \beta_3 M_i T_i + \varepsilon_{2i}
-\end{align}
-{#eq-mediator-moderator}
+\end{aligned}
+$${#eq-mediator-moderator}
 
 Again, using the definition of the `AITE` (@eq-aite)
 \begin{align}
