@@ -4,15 +4,7 @@
 .PHONY: keysearch
 keysearch: ## Search lit folder for keyword(s): eg make keysearch key="key word"
 	echo "==> $@"
-	pdfgrep "$(key)" lit/*.pdf
-
-#==============================================================================
-# Build
-#==============================================================================
-.PHONY: pdf
-pdf: ## Make the pdf
-	echo "==> $@"
-	
+	-pdfgrep "$(key)" lit/*.pdf
 
 #=========================================================================
 # Help
