@@ -4,27 +4,45 @@ project:
 
 book:
   title: "Cma"
+  subtitle: "Subtitle"
   author: "LSYS"
-  # date: "10/30/2023"
+  date: today
+  date-format: MMMM D, YYYY
   chapters:
     - index.qmd
   downloads: [pdf, epub, docx]
   navbar:
-    title: "Overview"
-    right:  
+    title: " "
+    left:
       - icon: house-up-fill
         href: https://www.lucasshen.com
         aria-label: Home directory
         target: _blank
+        text: Back to Homepage
+      - icon: journal-code
+        href: https://www.lucasshen.com/notes
+        aria-label: Other Notes
+        target: _blank
+        text: Other notes        
+    right:
       - icon: github
         href: https://github.com/lsys/cma
         aria-label: GitHub 
         target: _blank
+    sidebar:
+      tools:
+        - icon: github
+          href: https://github.com/
   sharing: [twitter, facebook, linkedin]
   search:
     location: navbar
     type: overlay
-  
+  keyword: mediation analysis, potential outcomes, causal inference
+  page-footer:
+    left:
+      - text: "&copy; Copyright 2023, Lucas Shen"
+        href: https://www.lucasshen.com
+
 
 bibliography: assets/references.bib
 
@@ -38,11 +56,18 @@ format:
     sidebar: false
     anchor-sections: true
     number-sections: false
+    fontsize: 17px
     grid:
-      body-width: 625px
+      body-width: 580px
       margin-width: 350px
+      sidebar-width: 0px
+      gutter-width: 0.8em
     reference-location: margin
     html-math-method: mathjax
+    email-obfuscation: javascript
+    metadata:
+      copyright: "Lucas Shen (2023)"
+      pagetitle: "pagetitle"
 
   pdf:
     documentclass: scrreprt
