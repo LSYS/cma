@@ -23,11 +23,15 @@ $$
 :::
 
 
-**passes**
+z**passes**
 
+* [ ] use trends of(GS + psychinfo)
+* [ ] check writing (stopped at endnote)
+* [x] figure out footnotes
+* [ ] figure out preambles
+* [ ] navbar icon hover text (tooltip)
 * [x] make certain | bigger
 * [x] get trends of ma pubmed 
-* use trends of(GS + psychinfo)
 * [x] make graph of AITEC + ADTET
 * [x] prove AITE [PO]
 * [x] prove AITE [Algebra]
@@ -44,31 +48,33 @@ $$
 * [x] brief note on the temporality of 
 * [x] pass through figure captions
 * [x] pass to see where `syn` makes sense
-* check writing
-* fix intro
-* fix endnote
-* figure out footnotes
+* [x] fix intro
+* [x] fix endnote
 * [x] double check seq ignorability
-* mediation with moderation (with direct effects)
-* JII application example
+* [x] mediation with moderation (with direct effects)
+* [x] JII application example
+* [x] Digraph hover names
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Statement of need -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Statement of need
-Mediation analysis apparently is not new [@Judd1981-rn]. 
+Mediation analysis is not new [@Judd1981-rn]. 
 But it is to me.
-Mediation analysis aims to shed light on mechanisms between some exposure of interest and some outcome of interest.
-Funding agencies (e.g., National Institute of Mental Health, NIH) for research grants even encourage or require mediation analyses of interventions to understand mechanisms [@Nguyen2021-oj].
-"Mediation analyses" is also increasingly popular.
+Mediation analysis aims to shed light on mechanisms between some exposure and some outcomes of interest.
+It's an ambitious aim but has potential implementational and policy implications.
+Funding agencies (e.g., National Institute of Mental Health, NIH) for research grants encourage or require mediation analyses of interventions to understand mechanisms [@Nguyen2021-oj].
+Since results from mediation analysis may influence policy and practice, I thought I should at least gain some literacy on it.
+"Mediation analysis" is also increasingly popular.
 **FIGURE** should sum up this statement of need. 
 
-Since results from mediation analysis may influence policy and practice, I thought I should at least gain some scientific literacy on it.
-Here's my dive into mediation analysis.
-Buckle up.
 
 <!-- Some notes on treatment effects -->
 ## (Un-mediated) Treatment effects {#sec-un-mediated-treatment-effects}
-First, to set some context with the causal inference approach with (model-free) potential outcomes (`PO`) without mediation. 
-In a simple setup with just treatment $T$ and an outcome of interes $Y$ (without the mediator $M$ for now), the main estimand of interest is the average treatment effect (`ATE`) defined as 
+First, to set some context with the causal inference approach with (model-agnostic) potential outcomes (`PO`) without mediation. 
+In a simple setup with just treatment $T$ and an outcome of interest $Y$ (without the mediator $M$ for now), the main estimand of interest is the average treatment effect (`ATE`) defined as 
 $$
 \tau \equiv \E\big[Y(1)\big] - \E\big[Y(0)\big],
 $${#eq-ate}
@@ -77,11 +83,11 @@ for the simplest scenario where $T$ is a binary split:
 $$ 
 T = \begin{cases} 
 1 & \text{if treated}, \\
-0 & \text{if untreated},
+0 & \text{if untreated}.
 \end{cases}
 $$
 
-and where $Y(1)$ is the potential outcome with treatment ($T=1$) and $Y(0)$ is the potential outcome without treatment ($T=0$).
+$Y(1)$ is the potential outcome with treatment ($T=1$) and $Y(0)$ is the potential outcome without treatment ($T=0$).
 For a given individual, only $Y(1)$ is observed with treatment.
  $Y(0)$ is the counterfactual.[^2]
 
@@ -89,7 +95,7 @@ For a given individual, only $Y(1)$ is observed with treatment.
 
 
 ```{dot}
-//| fig-cap: "Graph for the typical estimand of interest for $T$ and $Y$---the average treatment effect (`ATE`, @eq-ate)."
+//| fig-cap: "Graph for the typical estimand of interest for $T$ and $Y$---the average treatment effect (`ATE`, @eq-ate). Arrows imply causality."
 //| label: fig-ate-dag
 //| fig-width: 280px
 //| fig-height: 100px
@@ -105,7 +111,6 @@ digraph ATE {
   T -> Y
 }
 ```
-  <!-- d -> Y [ style=invis, label="", shape=plaintext] -->
 
 In reality, all we observe are outcomes conditional on the treatment $[Y|T=t]$ and the *statistical solution* [@Holland1986-yr] is via differences in averages
 $$
@@ -124,29 +129,32 @@ The simplest way to estimate $\tau$, given the assumptions are met, is
 $$
 Y_i = \alpha + \tau T_i + \varepsilon_i.
 $$
-  
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Mediation through the lens of potential outcomes -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Mediation through the lens of potential outcomes
 
 [^temporal-order]: Separate issue of temporal ordering of T, M, and Y (not covered in this vignette. See P49 of Stuart et al 2021 for more references.)
 
-[^4]: The total effect (TE) is apparently used in place of the ATE in the language of mediation analysis [e.g., @Judd1981-rn; @Robins1992-ty; @Imai2010-fu; @Bullock2010-vb; @Nguyen2021-oj; @whatif].
+[^4]: The *total effect* (`TE`) is used in place of the `ATE` in the language of mediation analysis [e.g., @Judd1981-rn; @Robins1992-ty; @Imai2010-fu; @Bullock2010-vb; @Nguyen2021-oj; @whatif].
 
 [^cam-notation]: This PO notation is similar to that in @Imbens2004-tp, @Angrist2009-oz, @Imai2010-tg; @Nguyen2021-oj, etc. @Pearl2001-ct, @whatif, etc., have slightly different PO notations.
 
-I was wondering how mediation analysis fit into this barebones potential outcomes framework.
-Most publications with mediation analysis are in the tradition of the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl] (hereafter the classical mediation approach).
+I was wondering how mediation analysis fits into this barebones potential outcomes framework.
+Most publications with mediation analysis are in the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl] (hereafter, the classical mediation approach).
 Inherent in mediation analysis, whether made explicit or not, is a causal hypothesis [@Nguyen2021-oj].
 T causes Y through M.
 There is, however, nothing in the mechanics of the classical approach that guarantees that uni-direction.[^mediation-wo-causation]
 
-[^mediation-wo-causation]: A "mediation analysis" without this explicit path (partly implied by the temporal ordering) is really just a "third variable analysis" which is an analysis of association [@Nguyen2021-oj].
+[^mediation-wo-causation]: A "mediation analysis" without this explicit path (partly implied by the temporal ordering) is really just a "third variable analysis", which is an analysis of association [@Nguyen2021-oj].
 
-[^mediation-causal]: This is different from other regular regression analyses, where, depending on the target and asssumptions, both causal and conditional association interpretations are valid [@Nguyen2021-oj].
+[^mediation-causal]: This is different from other regular regression analyses, where, depending on the target and assumptions, both causal and conditional association interpretations are valid [@Nguyen2021-oj].
 
-So mediation could benefit from, or deserves, explicit causal thinking [@Nguyen2021-oj].[^mediation-causal]
-Work to think of mediation in the causal inference framework started as early as @Robins1992-ty and as recent (at time of writing) as @Stuart2022-bm (here after the causal inference approach).[^temporal-order]
+So mediation could benefit from, or  deserves, explicit causal thinking [@Nguyen2021-oj].[^mediation-causal]
+Work to think of mediation in the causal inference framework started as early as @Robins1992-ty and as recent (at time of writing) as @Stuart2022-bm (hereafter the causal inference approach).[^temporal-order]
 With a proposed mediation path through a variable $M$, the analog of the `ATE` (from @eq-ate) is now: [^cam-notation]
 
 $$
@@ -178,25 +186,29 @@ digraph Mediation {
   T -> M [arrowsize=0.35];
 }
 ```
-[^5]: While going through a bunch of resources different fields, I came across a suggestion that the direct effect should really be called the unmediated effect (although I was unable to trace back the source). The notion is that the *direct effect* is no more a direct effect than the residual is a guassian error.
+[^5]: While going through a bunch of resources from different fields, I came across a suggestion that the direct effect should really be called the unmediated effect (although I was unable to trace back the source). The notion is that the *direct effect* is no more a direct effect than the residual is a Gaussian error.
 If there are unspecified mediation pathway(s), the direct effect will subsume those.
 
 From the total effect (@eq-ate2),[^4] we can start decomposing into the direct and indirect effects.[^5]
-Apparently there are two different sets of estimands [@Nguyen2021-oj]. (No one told me that...)
+Apparently, there are two different sets of estimands [@Nguyen2021-oj]. No one told me that...
 
 The direct effect is:
 $$
-\zeta(t) \equiv \E\big[Y_i(1, M_i(t))\big] - \E\big[Y_i(0, M_i(t))\big], \qquad t \in \{0, 1\}.
+\zeta(t) \equiv \E\big[Y_i(1, M_i(t))\big] - \E\big[Y_i(0, M_i(t))\big], \; t \in \{0, 1\}.
 $${#eq-direct-estimand}
 
 The indirect effect is:
 $$
-\delta(t) \equiv \E\big[Y_i(t, M_i(1))\big] - \E\big[Y_i(t, M_i(0))\big], \qquad t \in \{0, 1\}.
+\delta(t) \equiv \E\big[Y_i(t, M_i(1))\big] - \E\big[Y_i(t, M_i(0))\big], \; t \in \{0, 1\}.
 $${#eq-indirect-estimand}
 
 Varying $t$ gives two different sets of estimands for each of $\delta$ and $\zeta$.
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Set A: ADTE and AITE -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Set A: ADTE and AITE
 The first set of estimands for direct and indirect effects are the average direct treatment effect 
 $$
@@ -207,7 +219,7 @@ $$
 AITE \equiv \delta(1) = \underbrace{\E\big[Y(1,M(1))\big] - \E\big[Y(1,M(0))\big]}_{\text{effect of $M$ on $Y$ when $T=1$}}
 $${#eq-aite}
 
-The decomposition of the `ATE` into the two effects follows directly from the @eq-ate2:
+The decomposition of the `ATE` into the two effects follows directly from @eq-ate2:
 
 :::{.column-page}
 
@@ -220,9 +232,9 @@ The decomposition of the `ATE` into the two effects follows directly from the @e
 
 [^6]: Sometimes `ACME` [average causal mediation effect, @Imai2010-fu; @Imai2010-tg]. ADTE is aka the natural direct effect (NDE). AITE is aka the natural indirect effect (NIE). That's Pearl's language [@Pearl2001-ct]. Another one is pure direct effect and total indirect effect [e.g., @Robins1992-ty; @whatif].
 
-The `AITE` in particular is therefore also known as the causal mediation effect.[^6]
+The `AITE`, in particular, is also known as the causal mediation effect.[^6]
 This decomposition is suitable when there are strong priors about a direct effect but unclear priors on whether an indirect effect also exists.
-An example could be where $T$ is a STEM degree that raises labor market value $Y$ through some technical competency, but it is unclear whether additional benefits also arise through networking with peers $M$.
+An example could be where $T$ is a STEM degree that raises labor market value $Y$ through some technical competency. On the other hand, it is unclear whether additional benefits also arise through networking with peers $M$.
 
 ```{dot}
 //| fig-cap: "Set A: ADTE and AITE. ADTE is @eq-direct-estimand with $t = 0$---holding $m=0$ and asking what is the direct effect of with $T$.  AITE is @eq-indirect-estimand with $t=1$---holding $t=1$ and asking what is the indirect effect with $M$."
@@ -231,7 +243,7 @@ An example could be where $T$ is a STEM degree that raises labor market value $Y
 //| fig-height: 140px
 //| column: margin
 
-digraph Mediation {
+digraph SetA {
   rankdir=LR ;
   splines=false;
   layout=dot;
@@ -249,7 +261,7 @@ digraph Mediation {
 //| fig-height: 140px
 //| column: margin
 
-digraph Mediation {
+digraph SetB {
   rankdir=LR ;
   splines=false;
   layout=dot;
@@ -259,11 +271,16 @@ digraph Mediation {
   ADTET -> AITEC [dir=none, constraint=false, label="+", color=white];
 }
 ```
-Another example could be where $T$ is a dietary program (e.g., a low-whatever-the-frack-is-the-new-fad diet) that lowers diabetic risk $Y$, but it is unclear if reduction in diabetic risk also comes from weight loss $M$. 
+Another example could be where $T$ is a dietary program (e.g., a low-whatever-the-frack-is-the-new-fad diet) that lowers diabetic risk $Y$, but it is unclear if the reduction in diabetic risk also comes from weight loss $M$. 
 If not, targeting weight loss may be of limited efficacy.
 This is of practical implication since it informs where and what type of intervention should occur.
 
+
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Set B: ADTET and AITEC -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Set B: ADTET and AITEC
 The second set of estimands that decompose the `ATE` are the average direct treatment effect wrt the treated
 
@@ -285,20 +302,24 @@ $$
 $$
 ::: 
 
-This decomposition is useful for when there are strong priors about an indirect mediating path, but unclear priors about a direct effect.
-An example could be where $T$ is an MBA degree with weak connection labor market value $Y$ through some technical competency, but where benefits mainly arise through networking in the MBA program $M$.
+This decomposition is useful when there are strong priors about an indirect mediating path but unclear priors about a direct effect.
+An example could be where $T$ is an MBA degree with a weak connection labor market value $Y$ through some technical competency but where benefits mainly arise through networking in the MBA program $M$.
 
-<!-- Differences with traditional mediation analysis -->
-## Classical mediation analysis {#sec-classical-ma}
-In the classial mediation approach, in addition to
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+<!-- Classical mediation approach -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+## Classical mediation approach {#sec-classical-ma}
+In the classical mediation approach, in addition to
 
 $$
 Y_i = \alpha + \beta T_i + \varepsilon_i,
 $$
 
 two equations are estimated in a structural equation model[@Baron1986-zn]. 
-One modelling T and its effect on M.
-The other modelling the effect of T and M on Y.
+One modeling T and its effect on M.
+The other modeling the effect of T and M on Y.
 
 $$
 M_i = \alpha_0 + \alpha_1 T_i + \varepsilon_{1i}
@@ -313,8 +334,12 @@ The direct effect of $T$ on $Y$ would be observed with $\hat{\beta_1}$.
 
 The conditional analog of this with a set of covariates $\textbf{X}$ should follow closely [@Judd1981-rn].
 
-<!-- Common ground: Classical approach and causal inference approach -->
-## Classical mediation analysis: Common grounds {#sec-classical-mediation}
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+<!-- Classical mediation approach: Common ground -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+## Classical mediation approach: Common grounds {#sec-classical-mediation}
 How would the causal inference approach with potential outcomes connect to the classical approach?
 
 The reduced form (from @eq-classical-med1 and @eq-classical-med2) is:
@@ -339,14 +364,19 @@ which is exactly the same mediation effect proposed by the "product-of-coefficie
 
 [^note-si-classical-mediation]: @sec-si-classical-mediation in the [Supplementary appendix](#supplementary-appendix) shows that what falls out from the other three estimands is also consistent with the product of coefficients.
 
-If the classical and causal inference approach both agree on the underlying intuition of mediation, why use potential outcomes?
+If the classical and causal inference approaches both agree on the underlying intuition of mediation, why use potential outcomes?
 One reason is it helps clarify what the identification assumptions are.
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Biases, bounds, and assumptions -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Biases, bounds, and assumptions {#sec-bias-bounds-assumptions}
 What we only observe in the real world is $[Y_i \big|T = t, M = m]$, $t \in \{0, 1\}$, $m \in \{0, 1\}$.
 We also only observe actualized potential outcomes $Y(t, m)$ for the corresponding $m$ and $t$ values.
-From the `AITE` (@eq-aite), the observed differences in a mediated effect, given that treatment is "`switched on`"
+The observed difference only converges to $\delta(t)$ (`AITE`) under certain conditions.
+The observed difference in a mediated effect, given that treatment is "`switched on`"
  $t=1$, is   
 
 :::{.column-page}
@@ -359,9 +389,9 @@ $$
 $${#eq-med-selection-bias0}
 :::
 
-where, even given randomization of $T$ (analagous to @eq-independence-assumption in the un-mediated case), the selection issue with $M$ persists. 
+where, even given randomization of $T$ (analogous to @eq-independence-assumption in the un-mediated case), the selection issue with $M$ persists. 
 It will carry its own selection bias unless additional assumptions are imposed.
-The above only reduces to the `AITE` by imposing additional assumption on the statistical independence of $M$,
+The above only reduces to the `AITE` by imposing additional assumptions on the statistical independence of $M$,
 
 :::{.column-page}
 
@@ -377,20 +407,20 @@ $${#eq-med-selection-bias}
 where $E[Y(1, 0)|M=1]$ in the first equality is a counterfactual---what would potential outcome be for people with the $M$ `switched off` $m=0$ given that it is actually `switched on` $m=1$ (*concrete example* later below).
 The second equality collects terms into the underlying mediation estimand and an **additional bias component**.[^bias-algebra]
 
-[^bias-algebra]: @sec-bias-bounds-assumptions-algebra in the [Supplementary appendix](#supplementary-appendix) offer an alternative algebraic insight of the bias.
+[^bias-algebra]: @sec-bias-bounds-assumptions-algebra in the [Supplementary appendix](#supplementary-appendix) offers an alternative algebraic insight of the bias.
 
 [^aite-bias-same-sign]: Or, generally, share the same sign as the AITE.
 
-There is a tendency for this bias to be positive,[^aite-bias-same-sign] and, therefore overstate the mediation effect. 
-Take as *concrete example*, a case where we are interested in child income $Y$, parent income $T$, and college attendance $M$ in a classic case of intergenerational income mobility. 
+There is a tendency for this bias to be positive,[^aite-bias-same-sign] and, therefore, overstate the mediation effect. 
+Take, as a *concrete example*, a case where we are interested in child income $Y$, parent income $T$, and college attendance $M$ in a classic case of intergenerational income mobility. 
 Parent income affects child income, but also potentially through access to better education.
 The expected sign of the AITE should be positive.
 The first part of the bias is the counterfactual of the potential income of the child of not going to college, given that she did.
 Conditional on parent income, the child that goes to college should have qualities (non-existent in the child that never goes to college) that would be helpful for labor market success, and, to this extent, suggest that the bias component is $> 0$.
-Hence, without intervenening on the assignment of $M$, the estimated mediation effect tends to be bias.
+Hence, without intervening in the assignment of $M$, the estimated mediation effect tends to be biased.
 But the observed effect may still be useful to provide optimistic **bounds** for the underlying mediation effect.[^bounds]
 
-[^bounds]: This *bound* is *not* a statistical property. Instead, the bound is based on counterfactual reasoning about what the plausible potential outcomes are from on domain understanding.
+[^bounds]: This *bound* is *not* a statistical property. Instead, the bound is based on counterfactual reasoning about what the plausible potential outcomes are from domain understanding.
 
 The last line in @eq-med-selection-bias only reduces to the true `AITE` by imposing additional **assumptions**.
 
@@ -410,18 +440,22 @@ Second, given the actual value $T_i = t$, the mediator $M$ should be statistical
 The standard proposed solution to achieve this is to subject $M$ to experimental manipulation, just as with $T$.[^heterogeneities]
 The above is the `sequential ignorability assumption` since the assumptions are made *sequentially* [@Imai2010-fu]. 
 
-In addition, there is an (slighly more subtle) assumption with the common data support $T$ (and $M$).
+In addition, there is a (slightly more subtle) assumption with the common data support $T$ (and $M$).
 $$
 \exists \theta > 0: \ \theta \leq \E \left[ T_i = t \right] \leq (1-\theta), \qquad t \in \{0, 1\}
 $$
-With an additional modeling of mediation, an additional assumption applies to the mediator:
+With mediation, an additional assumption applies to the mediator:
 $$
 \exists \eta > 0: \ \eta \leq \E \left[ M_i = m \big| T_i = t \right] \leq (1-\eta), \qquad t \in \{0, 1\}.
 $$
 
 Loosely speaking, with mediation, twice the identification assumptions are needed.
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Mediation and instrumental variables -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Mediation and instrumental variables
 
 ```{dot}
@@ -431,7 +465,7 @@ Loosely speaking, with mediation, twice the identification assumptions are neede
 //| fig-height: 100px
 //| column: margin
 
-digraph Mediation {
+digraph InstrumentalVariableDesgin {
   rankdir=LR ;
   splines=false;
   layout=dot;
@@ -444,18 +478,22 @@ digraph Mediation {
 What if one thinks that the effect of $T$ should only pass purely through $M$?
 In this case, the graph in @fig-mediation reduces to @fig-IV.
 This turns out to be the causal graph of the instrumental variables approach.
-However, the catch now is that the set of identification assumption changes, with the sequential ignorability (@eq-seq-ignorability1, @eq-seq-ignorability2) no longer relevant [@Imai2010-fu].
+However, the catch now is that the set of identification assumptions changes, with the sequential ignorability (@eq-seq-ignorability1, @eq-seq-ignorability2) no longer relevant [@Imai2010-fu].
 Instead, the identification assumptions are those canonically established in the instrumental variable framework, such as that of exclusion restriction [@Angrist1996-gx].
-Moreover, the instrumental variable framework, by design, a priori rule out other causal mechanisms which may be less than idea for many health and social science research [@Imai2010-fu].
+Moreover, the instrumental variable framework by design a priori rules out other causal mechanisms. This may be less than ideal for many health and social science research [@Imai2010-fu].
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 <!-- Mediation with moderation -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Mediation with moderation
 Mediation is not moderation.
-Mediation allows the treatment $T$ to indirectly affect the outcome of interest $Y$ through some proposed mediator $M$.
+Mediation allows the treatment $T$ affect the outcome of interest $Y$ through some proposed mediator $M$ indirectly.
 Moderation, on the other hand, allows for the effect of $T$ to differ by levels of the moderator (e.g., vaccine efficacy differing by age groups).[^temporality] 
-But it turns out the mediation analysis framework also supports moderation with an addition moderating term $(M_i \times T_i)$ in @eq-classical-med2.
+But it turns out the mediation analysis framework also supports moderation with an additional moderating term $(M_i \times T_i)$ in @eq-classical-med2.
 
-[^temporality]: In terms of temporal ordering, moderators should be pre-exposure baselines (related to colliders/bad controls not covered here), while mediators should be post-exposure. Analyses termed as "mediation analyses", but where it is impossible for $T$ to influence $M$ because of temporal ordering, are really "third variable analyses" [@Nguyen2021-oj]. @sec-trends show a slight trend in "causal mediation analysis" only very recentlyss.
+[^temporality]: Regarding temporal ordering, moderators should be pre-exposure baselines (related to colliders/bad controls not covered here), while mediators should be post-exposure. Analyses termed as "mediation analyses", but where it is impossible for $T$ to influence $M$ because of temporal ordering, are really "third variable analyses" [@Nguyen2021-oj]. @sec-trends shows a slight trend in "causal mediation analysis" only very recently.
 
 $$
 \begin{aligned}
@@ -476,20 +514,104 @@ Again, using the definition of the `AITE` (@eq-aite)
 
 which is just the effect of $T$ on $M$ (the $\alpha_1$) multiplied by the coefficients of $M$ in the outcome regression ($\beta_2$ and $\beta_3$).
 
-So the mediation framework also directly allows for the mediator to have a role as a moderator.
+So, the mediation framework also directly allows for the mediator to have a role as a moderator.
 Compared to just $\alpha_1\beta_2$ from @sec-classical-mediation, the additional $\alpha_1\beta_3$ captures the additional effect, if any, of the mediator $M$ for those individuals in the treatment group $T=1$.
 $\alpha_1\beta_3$ is also another way of describing how $M$ moderates the effect of the treatment $T$.
-If it turns out $\beta_3 = 0$, then this implies no moderating relationship exist and the model reverts to that in @eq-classical-med2.
+If it turns out $\beta_3 = 0$, then this implies no moderating relationship exists, and the model reverts to that in @eq-classical-med2.
 
+
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+<!-- Application example: JOBS II -->
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+## Application example: JOBS II
+
+```{dot}
+//| fig-cap: "From past studies, participants randomized into treatment groups (`JOBS program`) have been found to have lower levels of depressive symptoms [@Vinokur1997-lj]."
+//| label: fig-JOBSA
+//| fig-width: 300px
+//| fig-height: 80px
+//| column: margin
+
+digraph JOBSII {
+  rankdir=LR 
+  splines=false;
+  node [shape=circle,fontsize="12"]
+  T [shape=plaintext, label="JOBS program", fontsize="14"]
+  Y [shape=plaintext, label="Depressive symptoms", fontsize="14"]
+  T -> Y [label="-ve", arrowsize=0.6]
+}
+```
+To give another concrete example, @Imai2010-tg (a running reference in this note) use the JOBS II experiment from the psychology literature on (un)employment and mental health (e.g., @Vinokur1997-lj).
+JOBS (Job Opportunities and Basic Skills training) II is a randomized field experiment.
+The goal was to identify the effects of a job training intervention on employment status and also on the mental wellbeing of the job seekers.[^JOBS-details]
+
+
+An extension of this interest is also to understand mediator factors.
+Past studies found the program helpful in reducing depressive symptoms (@fig-JOBSA).
+If true, what would be a mediating factor?
+Credibly identifying mediator factor(s) has implications for future programs.
+Furthermore, would the mediating factor be moderated by treatment status?
+This would help identify high-risk subgroups that can be more effectively screened in future programs [@Vinokur1997-lj].
+
+The mediator that is evaluated is `job-search self-efficacy`.[^JOBS-mediator]
+Importantly, self-efficacy is not randomized, so the second ignorability assumption is not satisfied by design.
+Instead, baseline covariates measured before the workshops (e.g., education, income, race, marital status, age, sex, previous occupation, and the level of economic hardship) are adjusted for.
+It turns out that a mediation effect exists.
+The estimated mediation effect is negative, which implies that JOBS helped reduce depressive symptoms by increasing job-search self-efficacy.
+The direct effect and the total effects, however, have null estimated effects.
+Moderating the mediator also yields null estimated effects.
+@fig-jobsB summarizes the relationship.
+
+
+```{dot}
+//| fig-cap: "Job-search self-efficacy as a mediating effect: Participants with higher self-efficacy report lower levels of depressive symptoms. The `*` denotes estimates found to be statistically distinguishable from zero at conventional levels."
+//| label: fig-jobsB
+//| fig-width: 500px
+//| fig-height: 200px
+//| fig-cap-location: margin
+
+digraph {
+  rankdir=LR ;
+  splines=false;
+  layout=dot;
+  node [shape=circle,fontsize="14"]
+  T [shape=plaintext, label="JOBS program", fontsize="15"]
+  M [shape=plaintext, label = <Job-search <br/>
+ self-efficacy <br/>>, fontsize="15"]
+  Y [shape=plaintext, label="Depressive symptoms", fontsize="15"]
+  M -> Y [arrowsize=0.55, label="-ve*"];
+  T -> Y [arrowsize=0.5, label="-ve"];
+  T -> M [arrowsize=0.5, label="+ve*"];
+}
+```
+
+[^JOBS-details]: JOBS II had 1,801 participants randomized into treatment and control groups.
+The treatment group participated in job skills workshops that taught job search skills and coping mechanisms. I.e., they got the `JOBS program`.
+For mental wellbeing, the key outcome measure is a continuous measure of `depressive symptoms` using the Hopkins Symptom Checklist (subscale of 11 items).
+
+[^JOBS-mediator]: Self-efficacy comes from six (five-point scale) items on the degree of confidence in being able to successfully perform six essential job-search activities (e.g., completing job application/resume, using social network to discover promising job openings, getting point across in a job interview; @Vinokur1997-lj). 
+
+
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ## Endnote
-This vignette is merely my attempt at gaining some literacy on (causal) mediation analysis.
-A lot of studies I've seen implicity use mediation to directly imply some kind of directional effect.
-This clearly alludes to a causal channel, but without being clear on what the estimands are or what identification assumptions are needed.
-This tracks with the exegesis by @Bullock2010-vb and @Nguyen2021-oj.
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 No new grounds have been broken by me here. 
-This is just my attempt at parsing and then synthesizing different resources that already exist (some as early as @Stuart2022-bm in the [Journal of Causal Inference](https://www.degruyter.com/journal/key/jci/html){target="_blank"}.
+This vignette is merely my attempt at parsing and then synthesizing different resources that already exist (some as recent as @Stuart2022-bm in the [Journal of Causal Inference](https://www.degruyter.com/journal/key/jci/html){target="_blank"}) to gain some literacy on (causal) mediation analysis.
+A lot of studies use mediation to imply some directional effect.
+This clearly alludes to a causal channel.
+Yet it's rarely clear what the estimands are and what identification assumptions are needed.
+This tracks with the exegesis by @Bullock2010-vb and @Nguyen2021-oj.
+What's covered here should make identification assumptions more transparent.
+If there's some error you want to point out or have comments, feel free to [reach out to me](mailto:lucas@lucasshen.com).
 Also, not everything is covered here, but the list of canonical resources should lead to more details.
 
+
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
 ---
 nocite: |
   @cmam
@@ -500,30 +622,6 @@ nocite: |
 ::: {#refs}
 :::
 
-
-<!-- 
-# Intervening on the mediator
-
-# Heterogeneities... [maybe appendix]
-
-# Interacting + moderation
-see Imai Keele Tingley 2010
-
-
-# Instruments and mediators
-
-See Bullock for a very short note
-see also Imai Keele Tingley 2010
-
-# Endnote 
-This vignette is merely my attempt at gaining some literacy on (causal) mediation analysis.
-Pretty much all studies I've seen implicity use mediation to directly imply some kind of directional effect.
-This clearly alludes to a causal channel, but without being clear on what the estimands are or what identification assumptions are needed.
-(this tracks with that paper by Ngyuen?)
--->
-
-
-
 \setcounter{section}{0}
 \renewcommand{\thesection}{\Alph{section}}
 
@@ -533,23 +631,31 @@ This clearly alludes to a causal channel, but without being clear on what the es
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A\arabic{figure}}
 
-## Supplementary appendix 
 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+## Supplementary appendix 
+<!------------------------------------------------------------->
+<!------------------------------------------------------------->
+
+<!------------------------------------------------------------->
 <!-- Trends in mediation analysis -->
+<!------------------------------------------------------------->
 ### Trends in mediation analysis {#sec-trends}
 
 :::{.column-page-right}
-![Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("mediation analysis") OR ("mediation analyses") without any other filters. 13,281 results found which has been trending up since around 2010.](assets/figures/pubmed-timeline-mediationanalysisORmediationanalyses.png){#fig-pubmed-ma-trends}
+![Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("mediation analysis") OR ("mediation analyses") without any other filters. 13,281 results found, which has been trending up since around 2010.](assets/figures/pubmed-timeline-mediationanalysisORmediationanalyses.png){#fig-pubmed-ma-trends}
 :::
 
 
 :::{.column-page-right}
-![Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("causal mediation analysis") OR ("causal mediation analyses") without any other filters. 757 results found which has been trending up since around 2018.](assets/figures/pubmed-timeline-causalmediationanalysisORcausalmediationanalyses.png){#fig-pubmed-ma-trends}
+![Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("causal mediation analysis") OR ("causal mediation analyses") without any other filters. 757 results found, which has been trending up since around 2018.](assets/figures/pubmed-timeline-causalmediationanalysisORcausalmediationanalyses.png){#fig-pubmed-ma-trends}
 :::
 
-
-<!-- Classical mediation analysis: ADTE, ADTET, AITEC -->
-### Classical mediation analysis: ADTE, ADTET, AITEC {#sec-si-classical-mediation}
+<!------------------------------------------------------------->
+<!-- Classical mediation approach: ADTE, ADTET, AITEC -->
+<!------------------------------------------------------------->
+### Classical mediation approach: ADTE, ADTET, AITEC {#sec-si-classical-mediation}
 Together with the definition of the ADTE (@eq-aite), this gives
 \begin{align}
 ADTE = \zeta(0)  
@@ -591,8 +697,9 @@ AITEC = \delta(0)
 &=\alpha_1 \beta_2.
 \end{align}
 
+<!------------------------------------------------------------->
 ### Biases, bounds, and assumptions: Algebraic version {#sec-bias-bounds-assumptions-algebra}
-
+<!------------------------------------------------------------->
 @Bullock2010-vb offer algebraic perspective of the bias seen in @sec-bias-bounds-assumptions.
 Starting with the linear structural equation model:
 \begin{align}
@@ -607,13 +714,14 @@ $$
 $$
 where $cov(\varepsilon_{2i}, \varepsilon_{3i})$ is the covariance of the error terms in the un-mediated model and the mediated model.
 So $\hat{\gamma}$ is only consistent if the covariance term reduces to 0, which is unlikely because whatever unmeasured $X_i$ is in $\varepsilon_{2i}$ should also be present in $\varepsilon_{3i}$ (like unmeasured qualities of a good worker in @sec-bias-bounds-assumptions).
-Moreover, the sign of $cov(\varepsilon_{2i}, \varepsilon_{3i})$ tend to coincide with the sign of $\gamma$, leading to the overstatement of the magnitude of the mediation effect $\gamma$, if any (as discussed in @sec-bias-bounds-assumptions).
+Moreover, the sign of $cov(\varepsilon_{2i}, \varepsilon_{3i})$ tends to coincide with the sign of $\gamma$, leading to the overstatement of the magnitude of the mediation effect $\gamma$, if any (as discussed in @sec-bias-bounds-assumptions).
 
+<!------------------------------------------------------------->
 ### Heterogeneities in mediation effect {#sec-heterogeneities}
-
-Not as much is said about heterogeneities in mediation effect it seems.
-@Bullock2010-vb does a treatment of this.
-Apparently, heterogeneities together with the product-of-coefficients method can be problematic, even when $M$ is already subject to experimental intervention.
+<!------------------------------------------------------------->
+Not as much, it seems,  is said about heterogeneities in mediation analysis.
+@Bullock2010-vb do a treatment of this.
+Heterogeneities, together with the product-of-coefficients method, can be problematic even when $M$ is already subject to experimental intervention.
 
 A similar model to @eq-classical-med1 and @eq-classical-med2 with heterogeneities in effect is
 \begin{align}
@@ -628,7 +736,7 @@ Y_i &= \alpha_2 + \beta_{2i} T_i + \gamma_{i} M_i + \varepsilon_{2i}
 //| fig-height: 100px
 //| column: margin
 
-digraph Mediation {
+digraph GroupA {
   rankdir=LR ;
   splines=false;
   layout=dot;
@@ -646,7 +754,7 @@ digraph Mediation {
 //| fig-height: 100px
 //| column: margin
 
-digraph Mediation {
+digraph GroupB {
   rankdir=LR ;
   splines=false;
   layout=dot;
@@ -670,7 +778,7 @@ and
 The mediation effect for group A is $\beta_{1A}\gamma_A = 4$ and for group B it is $\beta_{1B}\gamma_B = 3$.
 So the average of the two (given equal group proportion) is $\frac{4+3}{2} = 3.5$.
 
-But conventional estimate will not give $3.5$.
+However, the conventional estimate will not give $3.5$.
 This is because
 $$
 \bar{\beta_i} = \frac{\beta_{1A}+\beta_{1B}}{2} = \frac{2 - 3}{2} = -0.5
@@ -679,12 +787,30 @@ and
 $$
 \bar{\gamma} = \frac{\gamma_{A}+\gamma_{B}}{2} = \frac{2-1}{2} = 0.5
 $$ 
-The conventional estimate from product of coefficients is $-0.25$ ($\neq3.5$).
-This resembles basic probability where
-
+The conventional estimate from a product of coefficients is $-0.25$ ($\neq3.5$).
+This resembles basic probability, where
 $$
 \E\big[\beta_{1i}\big]\E\big[\gamma_i\big] = \E\big[\beta_{1i} \gamma_i\big] - \underbrace{cov(\beta_{1i}, \gamma_i)}_{\neq 0}
 $$
-so the product of the averages do not equal the average of the product unless that additional covariance term is zero.
+so the product of the averages does not equal the average of the product unless that additional covariance term is zero.
 So even if $M$ has been randomized, we still cannot identify the AITE (mediation effect) if heterogeneities exist [@Bullock2010-vb].
 
+
+<!------------------------------------------------------------->
+<!-- Mediation with moderation: Direct effect -->
+<!------------------------------------------------------------->
+### Mediation with moderation: Direct effect
+With moderation (as specified in @eq-mediator-moderator), and from the definition of the `ADTE` ($\zeta(1)$ from @eq-direct-estimand):
+
+\begin{align}
+&ADTE \equiv \zeta(1) \\
+&=\E\big[Y_i(1,M_i(0))\big] - \E\big[Y_i(0,M_i(0))\big] \\
+&=\Big\{\beta_0 + \beta_1 + \beta_2(\E[M|T=0]) +\beta_3 (\E[M|T=0]) \Big\}
+  - \Big\{\beta_0 + \beta_2(\E[M|T=0])  \Big\}\\
+&= \beta_1 + \alpha_0\beta_3.
+\end{align}
+
+So the `ADTE` is the effect of $T$ on $Y$ and an additional effect that is the product of a constant for $M$ and its effect moderated with $T$.
+If no moderation exists (i.e., $\beta_3=0$), the above reduces to just $\beta_1$, as in @sec-si-classical-mediation.
+In other words, mediation with moderation (allowing for the interaction of the mediator and treatment status) is the general case.
+No interactions is the special case.

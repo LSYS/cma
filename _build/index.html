@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="LSYS">
-<meta name="dcterms.date" content="2023-11-08">
+<meta name="dcterms.date" content="2023-11-09">
 
 <title>pagetitle</title>
 <style>
@@ -233,7 +233,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 8, 2023</p>
+      <p class="date">November 9, 2023</p>
     </div>
   </div>
   
@@ -750,12 +750,12 @@ T-&gt;Y
 <div class="page-columns page-full"><p>To give another concrete example, <span class="citation" data-cites="Imai2010-tg">Kosuke Imai, Keele, and Tingley (<a href="index.html#ref-Imai2010-tg" role="doc-biblioref">2010</a>)</span> (a running reference in this note) use the JOBS II experiment from the psychology literature on (un)employment and mental health (e.g., <span class="citation" data-cites="Vinokur1997-lj">Vinokur and Schul (<a href="index.html#ref-Vinokur1997-lj" role="doc-biblioref">1997</a>)</span>). JOBS (Job Opportunities and Basic Skills training) II is a randomized field experiment. The goal was to identify the effects of a job training intervention on employment status and also on the mental wellbeing of the job seekers.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn16"><p><sup>16</sup>&nbsp;JOBS II had 1,801 participants randomized into treatment and control groups. The treatment group participated in job skills workshops that taught job search skills and coping mechanisms. I.e., they got the <code>JOBS program</code>. For mental wellbeing, the key outcome measure is a continuous measure of <code>depressive symptoms</code> using the Hopkins Symptom Checklist (subscale of 11 items).</p></li></div></div>
 <p>An extension of this interest is also to understand mediator factors. Past studies found the program helpful in reducing depressive symptoms (<a href="#fig-JOBSA">Figure&nbsp;<span>6</span></a>). If true, what would be a mediating factor? Credibly identifying mediator factor(s) has implications for future programs. Furthermore, would the mediating factor be moderated by treatment status? This would help identify high-risk subgroups that can be more effectively screened in future programs <span class="citation" data-cites="Vinokur1997-lj">(<a href="index.html#ref-Vinokur1997-lj" role="doc-biblioref">Vinokur and Schul 1997</a>)</span>.</p>
 <div class="page-columns page-full"><p>The mediator that is evaluated is <code>job-search self-efficacy</code>.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> Importantly, self-efficacy is not randomized, so the second ignorability assumption is not satisfied by design. Instead, baseline covariates measured before the workshops (e.g., education, income, race, marital status, age, sex, previous occupation, and the level of economic hardship) are adjusted for. It turns out that a mediation effect exists. The estimated mediation effect is negative, which implies that JOBS helped reduce depressive symptoms by increasing job-search self-efficacy. The direct effect and the total effects, however, have null estimated effects. Moderating the mediator also yields null estimated effects. <a href="#fig-jobsB">Figure&nbsp;<span>7</span></a> summarizes the relationship.</p><div class="no-row-height column-margin column-container"><li id="fn17"><p><sup>17</sup>&nbsp;Self-efficacy comes from six (five-point scale) items on the degree of confidence in being able to successfully perform six essential job-search activities (e.g., completing job application/resume, using social network to discover promising job openings, getting point across in a job interview; <span class="citation" data-cites="Vinokur1997-lj">Vinokur and Schul (<a href="index.html#ref-Vinokur1997-lj" role="doc-biblioref">1997</a>)</span>).</p></li></div></div>
-<div class="cell page-columns page-full" data-fig-width="550px" data-fig-height="200px">
+<div class="cell page-columns page-full" data-fig-width="500px" data-fig-height="200px">
 <div class="cell-output-display page-columns page-full">
 <div id="fig-jobsB" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
 <div>
-<svg width="550" height="200" viewbox="0.00 0.00 485.08 89.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="500" height="200" viewbox="0.00 0.00 485.08 89.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 85)"> <polygon fill="white" stroke="transparent" points="-4,4 -4,-85 481.08,-85 481.08,4 -4,4"></polygon> <!-- T --> <g id="node1" class="node">
 <title>
 T
@@ -795,7 +795,7 @@ M-&gt;Y
 <h2 class="anchored" data-anchor-id="endnote">Endnote</h2>
 <!------------------------------------------------------------->
 <!------------------------------------------------------------->
-<p>No new grounds have been broken by me here. This vignette is merely my attempt at parsing and then synthesizing different resources that already exist (some as recent as <span class="citation" data-cites="Stuart2022-bm">Stuart et al. (<a href="index.html#ref-Stuart2022-bm" role="doc-biblioref">2022</a>)</span> in the <a href="https://www.degruyter.com/journal/key/jci/html" target="_blank">Journal of Causal Inference</a>) in order to gain some scientific literacy on (causal) mediation analysis. A lot of studies use mediation to directly imply some kind of directional effect. This clearly alludes to a causal channel. Yet it’s rarely clear what the estimands are or what identification assumptions are needed. This tracks with the exegesis by <span class="citation" data-cites="Bullock2010-vb">Bullock, Green, and Ha (<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">2010</a>)</span> and <span class="citation" data-cites="Nguyen2021-oj">Nguyen, Schmid, and Stuart (<a href="index.html#ref-Nguyen2021-oj" role="doc-biblioref">2021</a>)</span>. What’s covered here should make things more transparent. If there’s some error you would like to point out or have some comment, feel free to <script type="text/javascript">
+<p>No new grounds have been broken by me here. This vignette is merely my attempt at parsing and then synthesizing different resources that already exist (some as recent as <span class="citation" data-cites="Stuart2022-bm">Stuart et al. (<a href="index.html#ref-Stuart2022-bm" role="doc-biblioref">2022</a>)</span> in the <a href="https://www.degruyter.com/journal/key/jci/html" target="_blank">Journal of Causal Inference</a>) to gain some literacy on (causal) mediation analysis. A lot of studies use mediation to imply some directional effect. This clearly alludes to a causal channel. Yet it’s rarely clear what the estimands are and what identification assumptions are needed. This tracks with the exegesis by <span class="citation" data-cites="Bullock2010-vb">Bullock, Green, and Ha (<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">2010</a>)</span> and <span class="citation" data-cites="Nguyen2021-oj">Nguyen, Schmid, and Stuart (<a href="index.html#ref-Nguyen2021-oj" role="doc-biblioref">2021</a>)</span>. What’s covered here should make identification assumptions more transparent. If there’s some error you want to point out or have comments, feel free to <script type="text/javascript">
 <!--
 h='&#108;&#x75;&#x63;&#x61;&#x73;&#x73;&#104;&#x65;&#110;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#108;&#x75;&#x63;&#x61;&#x73;';e=n+a+h;
 document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#114;&#x65;&#x61;&#x63;&#104;&#32;&#x6f;&#x75;&#116;&#32;&#116;&#x6f;&#32;&#x6d;&#x65;'+'<\/'+'a'+'>');
@@ -910,7 +910,7 @@ Consult. Clin. Psychol.</em> 65 (5): 867–77. <a href="https://doi.org/10.1037/
 <div id="fig-pubmed-ma-trends" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assets/figures/pubmed-timeline-mediationanalysisORmediationanalyses.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for (“mediation analysis”) OR (“mediation analyses”) without any other filters. 13,281 results found which has been trending up since around 2010.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;8: Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for (“mediation analysis”) OR (“mediation analyses”) without any other filters. 13,281 results found, which has been trending up since around 2010.</figcaption>
 </figure>
 </div>
 </div>
@@ -918,7 +918,7 @@ Consult. Clin. Psychol.</em> 65 (5): 867–77. <a href="https://doi.org/10.1037/
 <div id="fig-pubmed-ma-trends" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="assets/figures/pubmed-timeline-causalmediationanalysisORcausalmediationanalyses.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for (“causal mediation analysis”) OR (“causal mediation analyses”) without any other filters. 757 results found which has been trending up since around 2018.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;9: Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for (“causal mediation analysis”) OR (“causal mediation analyses”) without any other filters. 757 results found, which has been trending up since around 2018.</figcaption>
 </figure>
 </div>
 </div>
@@ -974,13 +974,13 @@ Y_i &amp;= \alpha_3 + \beta_3 T_i + \gamma M_i + \varepsilon_{3i}\\
 \end{align}\]</span></p>
 <p>The probability limit of the estimated mediated effect <span class="math inline">\(\hat{\gamma}\)</span> <span class="citation" data-cites="Bullock2010-vb">(<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">Bullock, Green, and Ha 2010</a>)</span> is <span class="math display">\[
 \underbrace{\gamma}_{\text{AITE}} + \underbrace{\frac{cov(\varepsilon_{2i}, \varepsilon_{3i})}{var(\varepsilon_{2i})}}_{\text{asymptotic bias}},
-\]</span> where <span class="math inline">\(cov(\varepsilon_{2i}, \varepsilon_{3i})\)</span> is the covariance of the error terms in the un-mediated model and the mediated model. So <span class="math inline">\(\hat{\gamma}\)</span> is only consistent if the covariance term reduces to 0, which is unlikely because whatever unmeasured <span class="math inline">\(X_i\)</span> is in <span class="math inline">\(\varepsilon_{2i}\)</span> should also be present in <span class="math inline">\(\varepsilon_{3i}\)</span> (like unmeasured qualities of a good worker in <a href="#sec-bias-bounds-assumptions"><span>Section&nbsp;8</span></a>). Moreover, the sign of <span class="math inline">\(cov(\varepsilon_{2i}, \varepsilon_{3i})\)</span> tend to coincide with the sign of <span class="math inline">\(\gamma\)</span>, leading to the overstatement of the magnitude of the mediation effect <span class="math inline">\(\gamma\)</span>, if any (as discussed in <a href="#sec-bias-bounds-assumptions"><span>Section&nbsp;8</span></a>).</p>
+\]</span> where <span class="math inline">\(cov(\varepsilon_{2i}, \varepsilon_{3i})\)</span> is the covariance of the error terms in the un-mediated model and the mediated model. So <span class="math inline">\(\hat{\gamma}\)</span> is only consistent if the covariance term reduces to 0, which is unlikely because whatever unmeasured <span class="math inline">\(X_i\)</span> is in <span class="math inline">\(\varepsilon_{2i}\)</span> should also be present in <span class="math inline">\(\varepsilon_{3i}\)</span> (like unmeasured qualities of a good worker in <a href="#sec-bias-bounds-assumptions"><span>Section&nbsp;8</span></a>). Moreover, the sign of <span class="math inline">\(cov(\varepsilon_{2i}, \varepsilon_{3i})\)</span> tends to coincide with the sign of <span class="math inline">\(\gamma\)</span>, leading to the overstatement of the magnitude of the mediation effect <span class="math inline">\(\gamma\)</span>, if any (as discussed in <a href="#sec-bias-bounds-assumptions"><span>Section&nbsp;8</span></a>).</p>
 <!------------------------------------------------------------->
 </section>
 <section id="sec-heterogeneities" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="sec-heterogeneities">Heterogeneities in mediation effect</h3>
 <!------------------------------------------------------------->
-<p>Not as much is said about heterogeneities in mediation effect it seems. <span class="citation" data-cites="Bullock2010-vb">Bullock, Green, and Ha (<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">2010</a>)</span> does a treatment of this. Apparently, heterogeneities together with the product-of-coefficients method can be problematic, even when <span class="math inline">\(M\)</span> is already subject to experimental intervention.</p>
+<p>Not as much, it seems, is said about heterogeneities in mediation analysis. <span class="citation" data-cites="Bullock2010-vb">Bullock, Green, and Ha (<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">2010</a>)</span> do a treatment of this. Heterogeneities, together with the product-of-coefficients method, can be problematic even when <span class="math inline">\(M\)</span> is already subject to experimental intervention.</p>
 <p>A similar model to <a href="#eq-classical-med1">Equation&nbsp;<span>10</span></a> and <a href="#eq-classical-med2">Equation&nbsp;<span>11</span></a> with heterogeneities in effect is <span class="math display">\[\begin{align}
 M_i &amp;= \alpha_1 + \beta_{1i} T_i + \varepsilon_{1i}\\
 Y_i &amp;= \alpha_2 + \beta_{2i} T_i + \gamma_{i} M_i + \varepsilon_{2i}
@@ -1077,14 +1077,13 @@ T-&gt;Y
 \gamma_{B} &amp;= -1.
 \end{align}\]</span></p>
 <p>The mediation effect for group A is <span class="math inline">\(\beta_{1A}\gamma_A = 4\)</span> and for group B it is <span class="math inline">\(\beta_{1B}\gamma_B = 3\)</span>. So the average of the two (given equal group proportion) is <span class="math inline">\(\frac{4+3}{2} = 3.5\)</span>.</p>
-<p>But conventional estimate will not give <span class="math inline">\(3.5\)</span>. This is because <span class="math display">\[
+<p>However, the conventional estimate will not give <span class="math inline">\(3.5\)</span>. This is because <span class="math display">\[
 \bar{\beta_i} = \frac{\beta_{1A}+\beta_{1B}}{2} = \frac{2 - 3}{2} = -0.5
 \]</span> and <span class="math display">\[
 \bar{\gamma} = \frac{\gamma_{A}+\gamma_{B}}{2} = \frac{2-1}{2} = 0.5
-\]</span> The conventional estimate from product of coefficients is <span class="math inline">\(-0.25\)</span> (<span class="math inline">\(\neq3.5\)</span>). This resembles basic probability where</p>
-<p><span class="math display">\[
+\]</span> The conventional estimate from a product of coefficients is <span class="math inline">\(-0.25\)</span> (<span class="math inline">\(\neq3.5\)</span>). This resembles basic probability, where <span class="math display">\[
 \E\big[\beta_{1i}\big]\E\big[\gamma_i\big] = \E\big[\beta_{1i} \gamma_i\big] - \underbrace{cov(\beta_{1i}, \gamma_i)}_{\neq 0}
-\]</span> so the product of the averages do not equal the average of the product unless that additional covariance term is zero. So even if <span class="math inline">\(M\)</span> has been randomized, we still cannot identify the AITE (mediation effect) if heterogeneities exist <span class="citation" data-cites="Bullock2010-vb">(<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">Bullock, Green, and Ha 2010</a>)</span>.</p>
+\]</span> so the product of the averages does not equal the average of the product unless that additional covariance term is zero. So even if <span class="math inline">\(M\)</span> has been randomized, we still cannot identify the AITE (mediation effect) if heterogeneities exist <span class="citation" data-cites="Bullock2010-vb">(<a href="index.html#ref-Bullock2010-vb" role="doc-biblioref">Bullock, Green, and Ha 2010</a>)</span>.</p>
 <!------------------------------------------------------------->
 <!-- Mediation with moderation: Direct effect -->
 <!------------------------------------------------------------->
@@ -1099,7 +1098,7 @@ T-&gt;Y
   - \Big\{\beta_0 + \beta_2(\E[M|T=0])  \Big\}\\
 &amp;= \beta_1 + \alpha_0\beta_3.
 \end{align}\]</span></p>
-<p>So the <code>ADTE</code> is the effect of <span class="math inline">\(T\)</span> on <span class="math inline">\(Y\)</span> and an additional effect which is the product of a constant for <span class="math inline">\(M\)</span> and its effect moderated with <span class="math inline">\(T\)</span>. If no moderation exist (i.e., <span class="math inline">\(\beta_3=0\)</span>), then the above reduces to just <span class="math inline">\(\beta_1\)</span> as in <a href="#sec-si-classical-mediation"><span>Section&nbsp;14.2</span></a>. In other words, mediation with moderation (allowing for the interaction of the mediator and treatment status) is the general case. No allowing for interactions is the special case.</p>
+<p>So the <code>ADTE</code> is the effect of <span class="math inline">\(T\)</span> on <span class="math inline">\(Y\)</span> and an additional effect that is the product of a constant for <span class="math inline">\(M\)</span> and its effect moderated with <span class="math inline">\(T\)</span>. If no moderation exists (i.e., <span class="math inline">\(\beta_3=0\)</span>), the above reduces to just <span class="math inline">\(\beta_1\)</span>, as in <a href="#sec-si-classical-mediation"><span>Section&nbsp;14.2</span></a>. In other words, mediation with moderation (allowing for the interaction of the mediator and treatment status) is the general case. No interactions is the special case.</p>
 
 
 </section>
@@ -1461,7 +1460,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="https://www.lucasshen.com">© Copyright 2023, Lucas Shen</a>
+    <a class="nav-link" href="https://www.lucasshen.com">© Copyright 2023, Lucas Shen.</a>
   </li>  
 </ul>
     </div>   

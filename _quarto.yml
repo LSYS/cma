@@ -40,7 +40,7 @@ book:
   keyword: mediation analysis, potential outcomes, causal inference
   page-footer:
     left:
-      - text: "&copy; Copyright 2023, Lucas Shen"
+      - text: "&copy; Copyright 2023, Lucas Shen."
         href: https://www.lucasshen.com
 
 
@@ -58,8 +58,8 @@ format:
     number-sections: false
     fontsize: 17px
     grid:
-      body-width: 580px
-      margin-width: 350px
+      body-width: 520px
+      margin-width: 320px
       sidebar-width: 0px
       gutter-width: 0.8em
     reference-location: margin
