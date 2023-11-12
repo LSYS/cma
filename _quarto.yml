@@ -3,9 +3,9 @@ project:
   output-dir: _build
 
 book:
-  title: "Cma"
-  subtitle: "Subtitle"
-  author: "LSYS"
+  title: "Causal Mediation Analysis"
+  subtitle: "Down the rabbit hole"
+  author: "Lucas Shen"
   date: today
   date-format: MMMM D, YYYY
   chapters:
@@ -67,7 +67,7 @@ format:
     email-obfuscation: javascript
     metadata:
       copyright: "Lucas Shen (2023)"
-      pagetitle: "pagetitle"
+      pagetitle: "Causal mediation analysis --- Lucas Shen"
 
   pdf:
     documentclass: scrreprt
