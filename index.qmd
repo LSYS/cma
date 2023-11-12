@@ -22,13 +22,14 @@ $$
 ```
 :::
 
+::: {.hidden}
 
 z**passes**
 
-* [ ] use trends of(GS + psychinfo)
-* [ ] check writing (stopped at endnote)
+* [x] use trends of(GS + psychinfo)
+* [x] check writing (stopped at endnote)
 * [x] figure out footnotes
-* [ ] figure out preambles
+* [x] figure out preambles
 * [ ] navbar icon hover text (tooltip)
 * [x] make certain | bigger
 * [x] get trends of ma pubmed 
@@ -54,6 +55,7 @@ z**passes**
 * [x] mediation with moderation (with direct effects)
 * [x] JII application example
 * [x] Digraph hover names
+:::
 
 <!------------------------------------------------------------->
 <!------------------------------------------------------------->
@@ -64,12 +66,22 @@ z**passes**
 Mediation analysis is not new [@Judd1981-rn]. 
 But it is to me.
 Mediation analysis aims to shed light on mechanisms between some exposure and some outcomes of interest.
-It's an ambitious aim but has potential implementational and policy implications.
-Funding agencies (e.g., National Institute of Mental Health, NIH) for research grants encourage or require mediation analyses of interventions to understand mechanisms [@Nguyen2021-oj].
-Since results from mediation analysis may influence policy and practice, I thought I should at least gain some literacy on it.
+It's an ambitious aim but, if well identified, has potential implementational and policy implications.
+Funding agencies (e.g., National Institute of Mental Health, NIH) for research grants encourage or even require mediation analyses of interventions to understand mechanisms [@Nguyen2021-oj].
 "Mediation analysis" is also increasingly popular.
-**FIGURE** should sum up this statement of need. 
+Since it's increasingly popular and results may influence policy and practice, I thought I should at least gain some literacy on it.
+This vignette collects the gist of what I've managed to get from the literature.
+@fig-Nguyen-Schmid-Stuart-Figure1 [ ] [taken directly from @Nguyen2021-oj] should sum up this statement of need.
 
+:::{.column-page-right}
+![
+The raw counts in the top panel are counts reported by Google Scholar on two searches for articles (excluding patents and citations) with “mediation analysis” in the title, and for those with the same phrase anywhere in the text; 
+the adjusted counts are adjusted for the fact that the volume of all Google Scholar entries varies in size from year to year, using 2015 as the standard year. 
+In the bottom panel, the counts are reported by PsycINFO on the same two searches. These searches were conducted on 20/12/2018.
+<br>
+***Source:*** Figure 1 of @Nguyen2021-oj. Reproduced [from v1](https://arxiv.org/abs/1904.08515v1) with permission.
+](assets/figures/Nguyen-Schmid-Stuart-Figure1.png){#fig-Nguyen-Schmid-Stuart-Figure1}
+:::
 
 <!-- Some notes on treatment effects -->
 ## (Un-mediated) Treatment effects {#sec-un-mediated-treatment-effects}
@@ -135,7 +147,7 @@ $$
 <!-- Mediation through the lens of potential outcomes -->
 <!------------------------------------------------------------->
 <!------------------------------------------------------------->
-## Mediation through the lens of potential outcomes
+## Mediation through the lens of potential outcomes {#sec-mediation-po}
 
 [^temporal-order]: Separate issue of temporal ordering of T, M, and Y (not covered in this vignette. See P49 of Stuart et al 2021 for more references.)
 
@@ -144,7 +156,7 @@ $$
 [^cam-notation]: This PO notation is similar to that in @Imbens2004-tp, @Angrist2009-oz, @Imai2010-tg; @Nguyen2021-oj, etc. @Pearl2001-ct, @whatif, etc., have slightly different PO notations.
 
 I was wondering how mediation analysis fits into this barebones potential outcomes framework.
-Most publications with mediation analysis are in the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl] (hereafter, the classical mediation approach).
+Most publications with mediation analysis are in the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl, hereafter, the classical mediation approach].
 Inherent in mediation analysis, whether made explicit or not, is a causal hypothesis [@Nguyen2021-oj].
 T causes Y through M.
 There is, however, nothing in the mechanics of the classical approach that guarantees that uni-direction.[^mediation-wo-causation]
@@ -154,7 +166,7 @@ There is, however, nothing in the mechanics of the classical approach that guara
 [^mediation-causal]: This is different from other regular regression analyses, where, depending on the target and assumptions, both causal and conditional association interpretations are valid [@Nguyen2021-oj].
 
 So mediation could benefit from, or  deserves, explicit causal thinking [@Nguyen2021-oj].[^mediation-causal]
-Work to think of mediation in the causal inference framework started as early as @Robins1992-ty and as recent (at time of writing) as @Stuart2022-bm (hereafter the causal inference approach).[^temporal-order]
+Work to think of mediation in the causal inference framework started as early as @Robins1992-ty and as recent (at time of writing) as @Stuart2022-bm (hereafter, the causal inference approach).[^temporal-order]
 With a proposed mediation path through a variable $M$, the analog of the `ATE` (from @eq-ate) is now: [^cam-notation]
 
 $$
@@ -172,7 +184,7 @@ where the value of the mediator $M$ also depends on $T$.
 ```{dot}
 //| fig-cap: "Graph of mediation analysis. The path between T and Y is the direct effect (@eq-direct-estimand). The mediation effect is captured from $T$ to $M$ and then $M$ to $Y$ (@eq-indirect-estimand)."
 //| label: fig-mediation
-//| fig-width: 320px
+//| fig-width: 300px
 //| fig-height: 95px
 //| column: margin
 
@@ -329,7 +341,7 @@ Y_i = \beta_0 + \beta_1 T_i + \beta_2 M_i + \varepsilon_{2i}
 $${#eq-classical-med2}
 
 @eq-classical-med1 and @eq-classical-med2 are estimated separately.
-The mediation effect is observed via the "product-of-coefficients" method as ($\hat{\alpha_1} \hat{\beta_2}$)---quite literally the effect of $T$ on $M$ multiplied by the effect of $M$ on $Y$.
+The mediation effect is observed via the "product-of-coefficients" method as ($\hat{\alpha_1} \hat{\beta_2}$)---the effect of $T$ on $M$ multiplied by the effect of $M$ on $Y$.
 The direct effect of $T$ on $Y$ would be observed with $\hat{\beta_1}$.  
 
 The conditional analog of this with a set of covariates $\textbf{X}$ should follow closely [@Judd1981-rn].
@@ -364,8 +376,9 @@ which is exactly the same mediation effect proposed by the "product-of-coefficie
 
 [^note-si-classical-mediation]: @sec-si-classical-mediation in the [Supplementary appendix](#supplementary-appendix) shows that what falls out from the other three estimands is also consistent with the product of coefficients.
 
-If the classical and causal inference approaches both agree on the underlying intuition of mediation, why use potential outcomes?
-One reason is it helps clarify what the identification assumptions are.
+If the classical approach and the causal inference approach both agree on the underlying intuition of mediation, why bother with the potential outcomes framework?
+One reason is that it helps define estimands (as in @eq-direct-estimand in @sec-mediation-po).
+Another key reason is that it helps clarify what the identification assumptions are.
 
 <!------------------------------------------------------------->
 <!------------------------------------------------------------->
@@ -440,7 +453,7 @@ Second, given the actual value $T_i = t$, the mediator $M$ should be statistical
 The standard proposed solution to achieve this is to subject $M$ to experimental manipulation, just as with $T$.[^heterogeneities]
 The above is the `sequential ignorability assumption` since the assumptions are made *sequentially* [@Imai2010-fu]. 
 
-In addition, there is a (slightly more subtle) assumption with the common data support $T$ (and $M$).
+In addition, there is a (slightly more subtle) assumption with the common data support for $T$ (and $M$).
 $$
 \exists \theta > 0: \ \theta \leq \E \left[ T_i = t \right] \leq (1-\theta), \qquad t \in \{0, 1\}
 $$
@@ -530,7 +543,7 @@ If it turns out $\beta_3 = 0$, then this implies no moderating relationship exis
 ```{dot}
 //| fig-cap: "From past studies, participants randomized into treatment groups (`JOBS program`) have been found to have lower levels of depressive symptoms [@Vinokur1997-lj]."
 //| label: fig-JOBSA
-//| fig-width: 300px
+//| fig-width: 270px
 //| fig-height: 80px
 //| column: margin
 
@@ -555,7 +568,7 @@ Credibly identifying mediator factor(s) has implications for future programs.
 Furthermore, would the mediating factor be moderated by treatment status?
 This would help identify high-risk subgroups that can be more effectively screened in future programs [@Vinokur1997-lj].
 
-The mediator that is evaluated is `job-search self-efficacy`.[^JOBS-mediator]
+The mediator that is evaluated is `Job-search self-efficacy`.[^JOBS-mediator]
 Importantly, self-efficacy is not randomized, so the second ignorability assumption is not satisfied by design.
 Instead, baseline covariates measured before the workshops (e.g., education, income, race, marital status, age, sex, previous occupation, and the level of economic hardship) are adjusted for.
 It turns out that a mediation effect exists.
@@ -589,7 +602,7 @@ digraph {
 
 [^JOBS-details]: JOBS II had 1,801 participants randomized into treatment and control groups.
 The treatment group participated in job skills workshops that taught job search skills and coping mechanisms. I.e., they got the `JOBS program`.
-For mental wellbeing, the key outcome measure is a continuous measure of `depressive symptoms` using the Hopkins Symptom Checklist (subscale of 11 items).
+For mental wellbeing, the key outcome measure is a continuous measure of `Depressive symptoms` using the Hopkins Symptom Checklist (subscale of 11 items).
 
 [^JOBS-mediator]: Self-efficacy comes from six (five-point scale) items on the degree of confidence in being able to successfully perform six essential job-search activities (e.g., completing job application/resume, using social network to discover promising job openings, getting point across in a job interview; @Vinokur1997-lj). 
 
@@ -615,6 +628,7 @@ Also, not everything is covered here, but the list of canonical resources should
 ---
 nocite: |
   @cmam
+  @nguyen2020clarifying
 ---
 
 ## Resources {.numbered}
@@ -644,12 +658,12 @@ nocite: |
 ### Trends in mediation analysis {#sec-trends}
 
 :::{.column-page-right}
-![Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("mediation analysis") OR ("mediation analyses") without any other filters. 13,281 results found, which has been trending up since around 2010.](assets/figures/pubmed-timeline-mediationanalysisORmediationanalyses.png){#fig-pubmed-ma-trends}
+![Trends in mediation analysis. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("mediation analysis") OR ("mediation analyses") without any other filters. 13,281 results found, which has been trending up since around 2010. See @fig-Nguyen-Schmid-Stuart-Figure1 for similar trends using Google Scholar and PsycINFO from @Nguyen2021-oj.](assets/figures/pubmed-timeline-mediationanalysisORmediationanalyses.png){#fig-pubmed-ma-trends}
 :::
 
 
 :::{.column-page-right}
-![Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("causal mediation analysis") OR ("causal mediation analyses") without any other filters. 757 results found, which has been trending up since around 2018.](assets/figures/pubmed-timeline-causalmediationanalysisORcausalmediationanalyses.png){#fig-pubmed-ma-trends}
+![Trends in mediation analysis with explicit reference to causality. Screenshot of the results from searching PubMed from database inception to end of 2023 for ("causal mediation analysis") OR ("causal mediation analyses") without any other filters. 757 results found, which has been trending up since around 2018. ](assets/figures/pubmed-timeline-causalmediationanalysisORcausalmediationanalyses.png){#fig-pubmed-ma-trends}
 :::
 
 <!------------------------------------------------------------->
