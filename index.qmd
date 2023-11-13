@@ -22,41 +22,6 @@ $$
 ```
 :::
 
-::: {.hidden}
-
-z**passes**
-
-* [x] use trends of(GS + psychinfo)
-* [x] check writing (stopped at endnote)
-* [x] figure out footnotes
-* [x] figure out preambles
-* [ ] navbar icon hover text (tooltip)
-* [x] make certain | bigger
-* [x] get trends of ma pubmed 
-* [x] make graph of AITEC + ADTET
-* [x] prove AITE [PO]
-* [x] prove AITE [Algebra]
-* [x] product-coef from PO
-* [x] direct effect from PO (supp)
-* [x] Add GH icon
-* [x] change expectations
-* [x] use the delta and eta definitions of direct + indirect effects
-* [x] Change math delimiters
-* [x] Heterogeneities
-* [x] Moderation + mediation
-* [x] Instruments
-* [x] Fix all the DAGs and make the style consistent
-* [x] brief note on the temporality of 
-* [x] pass through figure captions
-* [x] pass to see where `syn` makes sense
-* [x] fix intro
-* [x] fix endnote
-* [x] double check seq ignorability
-* [x] mediation with moderation (with direct effects)
-* [x] JII application example
-* [x] Digraph hover names
-:::
-
 <!------------------------------------------------------------->
 <!------------------------------------------------------------->
 <!-- Statement of need -->
@@ -69,7 +34,7 @@ Mediation analysis aims to shed light on mechanisms between some exposure and so
 It's an ambitious aim but, if well identified, has potential implementational and policy implications.
 Funding agencies (e.g., National Institute of Mental Health, NIH) for research grants encourage or even require mediation analyses of interventions to understand mechanisms [@Nguyen2021-oj].
 "Mediation analysis" is also increasingly popular.
-Since it's increasingly popular and results may influence policy and practice, I thought I should at least gain some literacy on it.
+Since it's increasingly popular and results may influence policy and practice, I thought I should at least gain some literacy on mediation analysis.
 This vignette collects the gist of what I've managed to get from the literature.
 @fig-Nguyen-Schmid-Stuart-Figure1 [ ] [taken directly from @Nguyen2021-oj] should sum up this statement of need.
 
@@ -79,7 +44,7 @@ The raw counts in the top panel are counts reported by Google Scholar on two sea
 the adjusted counts are adjusted for the fact that the volume of all Google Scholar entries varies in size from year to year, using 2015 as the standard year. 
 In the bottom panel, the counts are reported by PsycINFO on the same two searches. These searches were conducted on 20/12/2018.
 <br>
-***Source:*** Figure 1 of @Nguyen2021-oj. Reproduced [from v1](https://arxiv.org/abs/1904.08515v1) with permission.
+***Source:*** Figure 1 of @Nguyen2021-oj. Reproduced [from v1](https://arxiv.org/abs/1904.08515v1){target="_blank"} with permission.
 ](assets/figures/Nguyen-Schmid-Stuart-Figure1.png){#fig-Nguyen-Schmid-Stuart-Figure1}
 :::
 
@@ -156,7 +121,7 @@ $$
 [^cam-notation]: This PO notation is similar to that in @Imbens2004-tp, @Angrist2009-oz, @Imai2010-tg; @Nguyen2021-oj, etc. @Pearl2001-ct, @whatif, etc., have slightly different PO notations.
 
 I was wondering how mediation analysis fits into this barebones potential outcomes framework.
-Most publications with mediation analysis are in the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl, hereafter, the classical mediation approach].
+Most publications with mediation analysis are in the Baron and Kenny tradition [@Judd1981-rn; @Baron1986-zn; @MacKinnon2012-jl; hereafter, the classical mediation approach].
 Inherent in mediation analysis, whether made explicit or not, is a causal hypothesis [@Nguyen2021-oj].
 T causes Y through M.
 There is, however, nothing in the mechanics of the classical approach that guarantees that uni-direction.[^mediation-wo-causation]
@@ -530,7 +495,9 @@ which is just the effect of $T$ on $M$ (the $\alpha_1$) multiplied by the coeffi
 So, the mediation framework also directly allows for the mediator to have a role as a moderator.
 Compared to just $\alpha_1\beta_2$ from @sec-classical-mediation, the additional $\alpha_1\beta_3$ captures the additional effect, if any, of the mediator $M$ for those individuals in the treatment group $T=1$.
 $\alpha_1\beta_3$ is also another way of describing how $M$ moderates the effect of the treatment $T$.
-If it turns out $\beta_3 = 0$, then this implies no moderating relationship exists, and the model reverts to that in @eq-classical-med2.
+If it turns out $\beta_3 = 0$, then this implies no moderating relationship exists, and the model reverts to that in @eq-classical-med2.[^moderation-direct-effects]
+
+[^moderation-direct-effects]: See @sec-si-moderation in the Supplementary appendix for the `ADTE` with moderation.
 
 
 <!------------------------------------------------------------->
@@ -570,10 +537,10 @@ This would help identify high-risk subgroups that can be more effectively screen
 
 The mediator that is evaluated is `Job-search self-efficacy`.[^JOBS-mediator]
 Importantly, self-efficacy is not randomized, so the second ignorability assumption is not satisfied by design.
-Instead, baseline covariates measured before the workshops (e.g., education, income, race, marital status, age, sex, previous occupation, and the level of economic hardship) are adjusted for.
+Instead, they adjust for baseline covariates measured before the workshops (e.g., education, income, race, marital status, age, sex, previous occupation, and the level of economic hardship).
 It turns out that a mediation effect exists.
 The estimated mediation effect is negative, which implies that JOBS helped reduce depressive symptoms by increasing job-search self-efficacy.
-The direct effect and the total effects, however, have null estimated effects.
+On the other hand, the direct and the total effects have null estimated effects. 
 Moderating the mediator also yields null estimated effects.
 @fig-jobsB summarizes the relationship.
 
@@ -813,7 +780,7 @@ So even if $M$ has been randomized, we still cannot identify the AITE (mediation
 <!------------------------------------------------------------->
 <!-- Mediation with moderation: Direct effect -->
 <!------------------------------------------------------------->
-### Mediation with moderation: Direct effect
+### Mediation with moderation: Direct effect {#sec-si-moderation}
 With moderation (as specified in @eq-mediator-moderator), and from the definition of the `ADTE` ($\zeta(1)$ from @eq-direct-estimand):
 
 \begin{align}

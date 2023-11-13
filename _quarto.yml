@@ -10,7 +10,7 @@ book:
   date-format: MMMM D, YYYY
   chapters:
     - index.qmd
-  downloads: [pdf, epub, docx]
+  downloads: [pdf]
   navbar:
     title: " "
     left:
@@ -75,8 +75,3 @@ format:
       - file: assets/packages.tex
       - assets/macros.tex
     keep-tex: false
-
-  epub: 
-    include-before-header: assets/macros.tex
-
-
